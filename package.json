@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/adamburmister/ghprint",
   "devDependencies": {
+    "forever": "^0.10.11"
   },
   "dependencies": {
     "markdown-pdf": "^2.2.0"
