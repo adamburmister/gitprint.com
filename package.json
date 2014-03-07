@@ -1,0 +1,30 @@
+{
+  "name": "ghprint",
+  "version": "0.0.1",
+  "description": "Render Github markdown files for easy printing",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/adamburmister/ghprint.git"
+  },
+  "keywords": [
+    "github",
+    "print",
+    "markdown",
+    "pdf"
+  ],
+  "author": "Adam Burmister <adam.burmister@gmail.com>",
+  "license": "All rights reserved",
+  "bugs": {
+    "url": "https://github.com/adamburmister/ghprint/issues"
+  },
+  "homepage": "https://github.com/adamburmister/ghprint",
+  "devDependencies": {
+  },
+  "dependencies": {
+    "markdown-pdf": "^2.2.0"
+  }
+}
