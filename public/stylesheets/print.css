@@ -125,7 +125,7 @@ h5              { font-size: .83em; margin: 1.5em 0 }
 h6              { font-size: .75em; margin: 1.67em 0 }
 h1, h2, h3, h4,
 h5, h6, b,
-strong          { font-weight: bolder }
+strong          { font-weight: bold }
 blockquote      { margin-left: 40px; margin-right: 40px }
 i, cite, em,
 var, address    { font-style: italic }
@@ -165,7 +165,7 @@ BDO[DIR="rtl"]  { direction: rtl; unicode-bidi: bidi-override }
 /* http://www.w3.org/TR/CSS2/page.html */
 
 body {
-  font-family: 'Vollkorn', Georgia, "Times New Roman",  Times, serif;
+  font-family: 'Merriweather', Georgia, "Times New Roman",  Times, serif;
   font-size: 11pt;
   line-height: 1.5;
   margin:0;
@@ -194,14 +194,12 @@ blockquote {
 a:link:after {
   color:#666;
   font-family: Helvetica, Arial, sans;
-  font-size: 9pt;
+  font-size: 0.8em;
   content: " (" attr(href) ") ";
 }
 
 a {
-    font-size: 10pt;
-    text-decoration: none;
-  font-weight: bold;
+  text-decoration: none;
   color: #333;
 }
 
