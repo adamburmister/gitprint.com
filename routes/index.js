@@ -27,8 +27,6 @@ function convert(req, res, url) {
     followAllRedirects: true
   };
 
-  console.log(url);
-
   request(requestOptions, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       markdownpdf(markdownOptions).from.string(body).to(outputPath, function (data) {
@@ -54,7 +52,7 @@ exports.convertMarkdownToPdf = function(req, res){
   convert(req, res, url);
 };
 
-exports.convertRepoReadmeMarkdownToPdf = function(req, res){
+exports.convertRootMarkdownToPdf = function(req, res){
   var githubPath = req.params[0].replace(REGEX.TrailingSlash, '$1'); // strip trailing slash
   var readme = 'README.md';
   // TODO: Figure out what the readme file and extension is
