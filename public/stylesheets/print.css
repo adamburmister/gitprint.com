@@ -171,6 +171,22 @@ body {
   margin:0;
 }
 
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+a:link, a:visited {
+   text-decoration: none;
+}
+
+a:link:after {
+  color:#666;
+  font-family: 'Open Sans', Helvetica, Arial, sans;
+  font-size: 0.8em;
+  content: " (" attr(href) ") ";
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Open Sans', Helvetica, Arial, sans;
   page-break-after: avoid;
@@ -183,6 +199,9 @@ h1 {
   padding-bottom: 0.5em;
   margin-bottom: 1em;
 }
+h1 a:link:after {
+  display: none;
+}
 
 ul, ol, dl    { 
   page-break-before: avoid 
@@ -190,22 +209,6 @@ ul, ol, dl    {
 
 blockquote {
   font-style:italic;
-}
-
-a:link:after {
-  color:#666;
-  font-family: 'Open Sans', Helvetica, Arial, sans;
-  font-size: 0.8em;
-  content: " (" attr(href) ") ";
-}
-
-a {
-  text-decoration: none;
-  color: #333;
-}
-
-:link, :visited {
-   text-decoration: none;
 }
 
 figure {
