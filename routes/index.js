@@ -24,7 +24,7 @@ exports.convertMarkdownToPdf = function(req, res){
 
   var markdownOptions = {
     cssPath: __dirname + '/../public/stylesheets/print.css',
-    paperBorder: '1.5cm',
+    paperBorder: '2cm',
     renderDelay: 500
   };
 
