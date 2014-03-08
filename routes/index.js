@@ -8,7 +8,7 @@ var url = require('url');
 // https://raw.github.com/echonest/pyechonest/master/README.md
 function githubRawPath(url) {
   if(/^.*\/blob\/master\/.+\.(md|mdown|markdown)$/.test(url)) {
-    url = url.replace(/^(.*)\/blob\/master\/(.+\.(md|mdown|markdown))$/, '$1/master/$2\.$3');
+    url = url.replace(/^(.*)\/blob\/master\/(.+\.(md|mdown|markdown))$/, '$1/master/$2');
   }
   return url;
 }
