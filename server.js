@@ -1,6 +1,15 @@
 var markdownpdf = require("markdown-pdf")
-  , fs = require("fs")
+var request = require('request');
 
-markdownpdf().from("/path/to/document.md").to("/path/to/document.pdf", function () {
-  console.log("Done")
-});
+var githubUrl = 'http://www.github.com/';
+var outputPath = '';
+
+request(githubUrl, function (error, response, body) {
+  if (!error && response.statusCode == 200) {
+    markdownpdf().from.string(body).to(outputPath, function () {
+		console.log("Created", outputPath);
+	})
+  } else {
+  	console.log("Error");
+  }
+})

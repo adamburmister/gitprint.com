@@ -4,7 +4,7 @@
   "description": "Render Github markdown files for easy printing",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./bin/www"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,14 @@
     "forever": "^0.10.11"
   },
   "dependencies": {
-    "markdown-pdf": "^2.2.0"
+    "express": "~3.5.0",
+    "static-favicon": "~1.0.0",
+    "morgan": "~1.0.0",
+    "cookie-parser": "~1.0.1",
+    "body-parser": "~1.0.0",
+    "debug": "~0.7.4",
+    "jade": "~1.3.0",
+    "markdown-pdf": "^2.2.0",
+    "request": "^2.34.0",
   }
 }
