@@ -27,10 +27,6 @@ time, mark, audio, video {
   background:transparent;
 }
 
-body {
-  line-height:1;
-}
-
 article,aside,details,figcaption,figure,
 footer,header,hgroup,menu,nav,section { 
   display:block;
@@ -169,7 +165,7 @@ BDO[DIR="rtl"]  { direction: rtl; unicode-bidi: bidi-override }
 /* http://www.w3.org/TR/CSS2/page.html */
 
 body {
-  font-family: Georgia, "Times New Roman",  Times, serif;
+  font-family: 'Vollkorn', Georgia, "Times New Roman",  Times, serif;
   font-size: 11pt;
   line-height: 1.5;
   margin:0;
