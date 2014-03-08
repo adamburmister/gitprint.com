@@ -26,11 +26,11 @@ app.use(app.router);
 // Homepage
 app.get('/', routes.index);
 
+// blob markdown
+app.get(/^\/(.*\/.*\/.*\.(md|mdown|markdown))$/, routes.convertMarkdownToPdf);
+
 // repo readme
 app.get(/^\/(.*\/.*\/?)$/, routes.convertRootMarkdownToPdf);
-
-// blob markdown
-app.get(/^\/(.*\.(md|mdown|markdown))$/, routes.convertMarkdownToPdf);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
