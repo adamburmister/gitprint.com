@@ -17,9 +17,6 @@ function convert(req, res, url) {
   var hash = crypto.createHash('md5').update(url).digest("hex");
   var outputPath = __dirname + '/../cache/' + hash + '.pdf';
 
-  console.log(outputPath);
-  console.log(url);
-
   var markdownOptions = {
     cssPath: __dirname + '/../public/stylesheets/print.css',
     paperBorder: '2cm',
@@ -49,13 +46,7 @@ function convert(req, res, url) {
 }
 
 exports.convertMarkdownToPdf = function(req, res){
-  var githubPath = req.params[0];
-  if(REGEX.BlobMarkdown.test(githubPath)) {
-    githubPath = githubPath.replace(REGEX.BlobMarkdown, '$1/master/$2');
-    console.log('Path blob', githubPath);
-  } else {
-    console.log('Path not blob', githubPath);
-  }
+  var githubPath = req.params[0].replace(REGEX.BlobMarkdown, '$1/master/$2')
   var url = 'https://raw.github.com/' + githubPath;
   convert(req, res, url);
 };
@@ -63,7 +54,7 @@ exports.convertMarkdownToPdf = function(req, res){
 exports.convertRootMarkdownToPdf = function(req, res){
   var githubPath = req.params[0].replace(REGEX.TrailingSlash, '$1'); // strip trailing slash
   var readme = 'README.md';
-  // TODO: Figure out what the readme file and extension is
+  // TODO: Figure out what the readme file and extension is by inspecting the repo somehow (DOM?)
   var url = 'https://raw.github.com/' + githubPath + '/master/' + readme;
   convert(req, res, url);
 };
