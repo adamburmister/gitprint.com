@@ -8,50 +8,66 @@ var REGEX = {
   TrailingSlash: /(.*)\/$/
 };
 
+var MARKDOWN_OPTIONS = {
+  cssPath: __dirname + '/../public/stylesheets/print.css',
+  paperBorder: '2cm',
+  renderDelay: 500
+};
+
 /**
  Convert a github raw URL to PDF and send it to the client
  @param {string} url
  */
 function convert(req, res, url) {
-  var markdownOptions = {
-    cssPath: __dirname + '/../public/stylesheets/print.css',
-    paperBorder: '2cm',
-    renderDelay: 500
-  };
-
   var requestOptions = {
-    method: 'GET',
+    method: 'HEAD',
     uri: url,
     followAllRedirects: true
   };
 
+  // Do a cheaper HEAD request first to see if we already have a pre-rendered PDF on disk cache
   request(requestOptions, function (error, response, body) {
-    // Where are we saving this file?
-    var hash = crypto.createHash('md5').update(url).digest("hex"); // fingerprint path
-    var etag = (response.headers.etag || 'no_etag').replace(/"/g,''); // get the etag (stripping quotes)
-    var outputPath = __dirname + '/../cache/' + hash + '-' + etag + '.pdf';
+    if (!error && response.statusCode == 200) {
+      // The HEAD request worked, no check the cache for a PDF
 
-    fs.exists(outputPath, function(exists) {
-      if (exists) {
-        // We have a copy already! Just send that
-        console.log('Serving PDF from cache, ' + outputPath);
-        fs.createReadStream(outputPath).pipe(res);
-      } else {
-        // We don't have a prerendered PDF, so download and render one
-        if (!error && response.statusCode == 200) {
-          markdownpdf(markdownOptions).from.string(body).to(outputPath, function (data) {
-            var stream = fs.createReadStream(outputPath);
-            
-            res.setHeader('Content-disposition', 'inline; filename="github-print.pdf"');
-            res.contentType('application/pdf');
-            
-            stream.pipe(res);
-          });
+      // Where are we saving this file?
+      var hash = crypto.createHash('md5').update(url).digest("hex"); // fingerprint path
+      var etag = (response.headers.etag || 'no_etag').replace(/"/g,''); // get the etag (stripping quotes)
+      var outputPath = __dirname + '/../cache/' + hash + '-' + etag + '.pdf';
+
+      fs.exists(outputPath, function(exists) {
+        if (exists) {
+          // We have a copy already! Just send that
+          console.log('Serving PDF from cache, ' + outputPath);
+          fs.createReadStream(outputPath).pipe(res);
         } else {
-          res.send(500, 'Something went wrong! Couldn\'t process ' + url);
+          // We don't have a prerendered PDF, so download and render one
+
+          // Upgrade to a full GET request
+          requestOptions.method = 'GET';
+          request(requestOptions, function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+              markdownpdf(MARKDOWN_OPTIONS).from.string(body).to(outputPath, function (data) {
+                var stream = fs.createReadStream(outputPath);
+                
+                res.setHeader('Content-disposition', 'inline; filename="github-print.pdf"');
+                res.contentType('application/pdf');
+                
+                stream.pipe(res);
+              });
+            } else {
+              res.send(500, 'Something went wrong! Couldn\'t process ' + url);
+            }
+          });
+
         }
-      }
-    });
+      });
+
+    } else {
+      // The HEAD failed
+      res.send(500, 'Something went wrong! Couldn\'t process ' + url); 
+    }
+
   });
 }
 
