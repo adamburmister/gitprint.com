@@ -25,6 +25,7 @@ app.use(app.router);
 
 app.get('/', routes.index);
 app.get(/^\/(.*\.(md|mdown|markdown))$/, routes.convertMarkdownToPdf);
+app.get(/^\/(.*\/.*\/?)$/, routes.convertRepoReadmeMarkdownToPdf);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
