@@ -166,13 +166,13 @@ BDO[DIR="rtl"]  { direction: rtl; unicode-bidi: bidi-override }
 
 body {
   font-family: 'Merriweather', Georgia, "Times New Roman",  Times, serif;
-  font-size: 11pt;
+  font-size: 10pt;
   line-height: 1.5;
   margin:0;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: Helvetica, Arial, sans;
+  font-family: 'Open Sans', Helvetica, Arial, sans;
   page-break-after: avoid;
   border-bottom: 1pt solid #ccc;
   margin: 1.5em 0 0.5em 0;
@@ -180,7 +180,8 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   border-bottom: 4pt solid #ccc;
-  padding-bottom:8pt;
+  padding-bottom: 0.5em;
+  margin-bottom: 1em;
 }
 
 ul, ol, dl    { 
@@ -193,7 +194,7 @@ blockquote {
 
 a:link:after {
   color:#666;
-  font-family: Helvetica, Arial, sans;
+  font-family: 'Open Sans', Helvetica, Arial, sans;
   font-size: 0.8em;
   content: " (" attr(href) ") ";
 }
@@ -208,8 +209,8 @@ a {
 }
 
 figure {
-  border:1pt solid #000;
-  padding:12pt;
+  border: 1pt solid #000;
+  padding: 12pt;
   text-align: center;
 }
 

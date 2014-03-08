@@ -4,11 +4,16 @@ var request = require('request');
 var url = require('url');
 
 // Translate github.com to raw.github.com
-// https://github.com    /echonest/pyechonest/blob/master/README.md
-// https://raw.github.com/echonest/pyechonest/master/README.md
 function githubRawPath(url) {
+  // If it's a blob-view of a markdown file
   if(/^.*\/blob\/master\/.+\.(md|mdown|markdown)$/.test(url)) {
+    // https://github.com    /echonest/pyechonest/blob/master/README.md =>
+    // https://raw.github.com/echonest/pyechonest/master/README.md
     url = url.replace(/^(.*)\/blob\/master\/(.+\.(md|mdown|markdown))$/, '$1/master/$2');
+  } else if(/^.+\/.+\/?$/) { // or the root repo readme ('/username/reponame/')
+    // https://github.com/abecoffman/jQuery-Fixed-to-Parent =>
+    // https://github.com/abecoffman/jQuery-Fixed-to-Parent/blob/master/README.md
+    url += '/blob/master/README.md'
   }
   return url;
 }
@@ -31,8 +36,7 @@ exports.convertMarkdownToPdf = function(req, res){
   var requestOptions = {
     method: 'GET',
     uri: githubUrl,
-    followAllRedirects: true,
-    strictSSL: false
+    followAllRedirects: true
   };
 
   request(requestOptions, function (error, response, body) {
