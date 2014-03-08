@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
 app.get('/', routes.index);
-app.get(/^\/(.*\.md)$/, routes.convertMarkdownToPdf);
+app.get(/^\/(.*\.(md|mdown|markdown))$/, routes.convertMarkdownToPdf);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

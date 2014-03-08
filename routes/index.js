@@ -7,8 +7,8 @@ var url = require('url');
 // https://github.com    /echonest/pyechonest/blob/master/README.md
 // https://raw.github.com/echonest/pyechonest/master/README.md
 function githubRawPath(url) {
-  if(/^.*\/blob\/master\/.+\.md$/.test(url)) {
-    url = url.replace(/^(.*)\/blob\/master\/(.+\.md)$/, '$1/master/$2');
+  if(/^.*\/blob\/master\/.+\.(md|mdown|markdown)$/.test(url)) {
+    url = url.replace(/^(.*)\/blob\/master\/(.+\.(md|mdown|markdown))$/, '$1/master/$2\.$3');
   }
   return url;
 }
@@ -27,8 +27,6 @@ exports.convertMarkdownToPdf = function(req, res){
     paperBorder: '1.5cm',
     renderDelay: 500
   };
-
-  console.log(markdownOptions);
 
   var requestOptions = {
     method: 'GET',
