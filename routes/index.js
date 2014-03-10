@@ -3,6 +3,9 @@ var markdownpdf = require('markdown-pdf')
 var request = require('request');
 var crypto = require('crypto');
 
+// How long to wait for the view to render
+var WAIT_FOR_RENDER_DELAY = 1500;
+
 var REGEX = {
   BlobMarkdown: /^(.*)\/blob\/master\/(.+\.(md|mdown|markdown))$/,
   TrailingSlash: /(.*)\/$/
@@ -11,7 +14,7 @@ var REGEX = {
 var MARKDOWN_OPTIONS = {
   cssPath: __dirname + '/../public/stylesheets/print.css',
   paperBorder: '2cm',
-  renderDelay: 1000
+  renderDelay: WAIT_FOR_RENDER_DELAY
 };
 
 /**
