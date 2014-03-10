@@ -11,7 +11,7 @@ var REGEX = {
 var MARKDOWN_OPTIONS = {
   cssPath: __dirname + '/../public/stylesheets/print.css',
   paperBorder: '2cm',
-  renderDelay: 500
+  renderDelay: 1000
 };
 
 /**
