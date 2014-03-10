@@ -8,7 +8,7 @@ var WAIT_FOR_RENDER_DELAY = 1500;
 
 var REGEX = {
   BlobMarkdown: /^(.*)\/blob\/master\/(.+\.(md|mdown|markdown))$/,
-  TrailingSlash: /(.*)\/$/
+  TrailingSlash: /(.*)\/$/,
 };
 
 var MARKDOWN_OPTIONS = {
@@ -18,8 +18,8 @@ var MARKDOWN_OPTIONS = {
 };
 
 /**
- Convert a github raw URL to PDF and send it to the client
- @param {string} url
+ * Convert a github raw URL to PDF and send it to the client
+ * @param {string} url
  */
 function convert(req, res, url) {
   var requestOptions = {
@@ -82,10 +82,17 @@ exports.convertMarkdownToPdf = function(req, res){
 
 exports.convertRootMarkdownToPdf = function(req, res){
   var githubPath = req.params[0].replace(REGEX.TrailingSlash, '$1'); // strip trailing slash
-  var readme = 'README.md';
-  // TODO: Figure out what the readme file and extension is by inspecting the repo somehow (DOM?)
-  var url = 'https://raw.github.com/' + githubPath + '/master/' + readme;
-  convert(req, res, url);
+  var requestOptions = {
+    url: 'https://api.github.com/repos/' + githubPath + '/readme',
+    json:true,
+    headers: { 'User-Agent': 'gitprint.com' }
+  };
+  // Ask Github what README file to use
+  request(requestOptions, function(error, response, body) {
+    var readmeFilename = body["path"];
+    var url = 'https://raw.github.com/' + githubPath + '/master/' + readmeFilename;
+    convert(req, res, url);
+  });
 };
 
 
