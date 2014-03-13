@@ -1,0 +1,36 @@
+doctype html
+html
+  head
+    title= pageTitle
+    meta(charset='utf-8')
+    meta(description='Easily print GitHub markdown')
+    link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/stylesheets/printView.css')
+    script.
+      function printFrame(id) {
+        var frm = document.getElementById(id).contentWindow;
+        frm.focus();// focus on contentWindow is needed on some ie versions
+        frm.print();
+        return false;
+      }
+  body.printView
+    nav#headerNav.navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle(data-toggle="collapse" data-target="#nav")
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href="/") GitPrint.com
+        #nav.collapse.navbar-collapse
+          ul.nav.navbar-nav.navbar-right
+            li
+              a.btn.btn-default(href="?download") Download
+            li
+              a.btn.btn-primary.btn-print(href="#print", onclick='printFrame("document");return false;')
+                span.glyphicon.glyphicon-print
+                span Print
+            
+    .documentContainer
+      iframe#document(src='?inline', width='100%', height='100%', scrolling='no', frameborder='no', onload='printFrame("document")')

@@ -1,0 +1,46 @@
+/* Space out content a bit */
+body {
+  padding: 0;
+  background: #eee;
+  overflow: hidden;
+  max-height: 100%;
+}
+
+#headerNav {
+  height: 5em;
+  padding-top: 0.5em;
+  border-bottom: 2px solid #ccc;
+}
+
+#headerNav .btn {
+  margin-left: 0.5em;
+}
+#headerNav .btn-print {
+  color: #fff;
+}
+#headerNav .btn-print:hover, #headerNav .btn-print:focus, #headerNav .btn-print:active {
+  color: inherit;
+}
+#headerNav .btn .glyphicon {
+  margin-right: 0.5em;
+}
+
+
+.documentContainer {
+  position: absolute;
+  top: 5em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+  background: white;
+}
+iframe#document {
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+
+}
