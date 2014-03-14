@@ -221,6 +221,7 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   border-bottom: 4pt solid #ccc;
   padding-bottom: 0.5em;
+  margin-top: 1em;
   margin-bottom: 1em;
 }
 /** Don't show anchors in headers */
