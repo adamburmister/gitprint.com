@@ -13,8 +13,9 @@ var REGEX = {
 
 var MARKDOWN_OPTIONS = {
   cssPath: __dirname + '/../public/stylesheets/print.css',
-  paperBorder: '2cm',
-  renderDelay: WAIT_FOR_RENDER_DELAY
+  paperBorder: '1cm',
+  renderDelay: WAIT_FOR_RENDER_DELAY,
+  runningsPath: __dirname + '/../lib/runnings.js',
 };
 
 var DISPOSITION = {
@@ -108,7 +109,7 @@ exports.convertRootMarkdownToPdf = function(req, res){
     if(Object.keys(req.query).indexOf('download') !== -1) {
       disposition = DISPOSITION.ATTACHMENT;
     }
-    
+
     // Ask Github what README file to use
     request(requestOptions, function(error, response, body) {
       var readmeFilename = body["path"] || 'README.md';
