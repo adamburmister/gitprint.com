@@ -20,6 +20,7 @@ Icomoon
 }
 */
 
+
 /* 
 html5doctor.com Reset Stylesheet
 v1.6.1
@@ -266,20 +267,22 @@ pre:before {
   position: absolute;
   /*left: 0;*/
   /*top: 0;*/
-  margin-left: -2.5rem;
-  /*font-family: 'icomoon';*/
+  /*margin-top: -0.5rem;*/
+  margin-left: -3rem;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   /*speak: none;*/
   font-style: normal;
-  font-weight: normal;
+  font-weight: 600;
   font-variant: normal;
-  font-size: 2em;
+  font-size: 0.8rem;
   text-transform: none;
+  color: #666;
+  
+  /* Console */
   line-height: 1;
-  color: #ccc;
+  padding: 0 0.3rem;
+  border: 1pt solid #666;
+  border-top-width: 2pt;
 
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  content: "➥";
+  content: ">";
 }
