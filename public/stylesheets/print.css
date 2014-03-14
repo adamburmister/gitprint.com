@@ -256,12 +256,12 @@ pre:after {
   width: 0.8rem;
 
   line-height: 1;
-  color: #000;
+  color: #333;
 
   font-family: 'icomoon';
   font-weight: normal;
   font-style: normal;
-  content: "\e600";
+  content: "\e601";
 }
 pre:before {
   position: absolute;
