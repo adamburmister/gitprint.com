@@ -5,6 +5,7 @@ var crypto = require('crypto');
 
 // How long to wait for the view to render
 var WAIT_FOR_RENDER_DELAY = 1500;
+var MAX_FILENAME_LEN = 60;
 
 var REGEX = {
   BlobMarkdown: /^(.*)\/blob\/master\/(.+\.(md|mdown|markdown))$/,
@@ -47,7 +48,7 @@ function convert(req, res, url, disposition) {
       var outputPath = __dirname + '/../cache/' + hash + '-' + etag + '.pdf';
 
       fs.exists(outputPath, function(exists) {
-        var pdfFilename = 'gitprint-' + hash + '-' + etag + '.pdf';
+        var pdfFilename = 'gitprint__' + (req.params[0].replace(/[^a-zA-Z0-9-_\.]/gi,'-')).substr(0, MAX_FILENAME_LEN) + '.pdf';
         var headerContentDisposition = (disposition || DEFAULT_DISPOSITION) + '; filename="' + pdfFilename + '"';
         
         res.setHeader('Content-disposition', headerContentDisposition);
