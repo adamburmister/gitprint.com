@@ -1,19 +1,33 @@
 /* Space out content a bit */
 body {
   padding: 0;
-  background: #eee;
+  background: #fff;
   overflow: hidden;
   max-height: 100%;
+  padding-top: 70px;
 }
 
 #headerNav {
   height: 5em;
+  padding: 0 1rem;
   padding-top: 0.5em;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  background-color: #fff;
 }
-
+#headerNav .navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+#headerNav .navbar-brand em {
+  font-style: normal;
+  font-weight: normal;
+  color: #999;
+}
 #headerNav .btn {
   margin-left: 0.5em;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 #headerNav .btn-print {
   color: #fff;
@@ -24,7 +38,6 @@ body {
 #headerNav .btn .glyphicon {
   margin-right: 0.5em;
 }
-
 
 .documentContainer {
   position: absolute;

@@ -94,13 +94,13 @@ exports.convertMarkdownToPdf = function(req, res){
   } else if(Object.keys(req.query).indexOf('inline') !== -1) {
     convert(req, res, url, DISPOSITION.INLINE);
   } else {
-    res.render('printView');
+    res.render('printView', { pageTitle: githubPath });
   }
 };
 
 exports.convertRootMarkdownToPdf = function(req, res){
+  var githubPath = req.params[0].replace(REGEX.TrailingSlash, '$1'); // strip trailing slash
   if(Object.keys(req.query).indexOf('download') !== -1 || Object.keys(req.query).indexOf('inline') !== -1) {
-    var githubPath = req.params[0].replace(REGEX.TrailingSlash, '$1'); // strip trailing slash
     var requestOptions = {
       url: 'https://api.github.com/repos/' + githubPath + '/readme',
       json:true,
@@ -118,7 +118,7 @@ exports.convertRootMarkdownToPdf = function(req, res){
       convert(req, res, url, disposition);
     });
   } else {
-    res.render('printView');
+    res.render('printView', { pageTitle: githubPath });
   }
 };
 
