@@ -1,7 +1,7 @@
 /*
 Icomoon
 */
-@font-face {
+/*@font-face {
   font-family: 'icomoon';
   src:url('/public/fonts/icomoon.eot?3fjud4');
   src:url('/public/fonts/icomoon.eot?#iefix3fjud4') format('embedded-opentype'),
@@ -11,7 +11,7 @@ Icomoon
   font-weight: normal;
   font-style: normal;
 }
-
+*/
 /*.icon-display:before {
   content: "\e600";
 }
@@ -259,30 +259,52 @@ img {
 pre {
   position: relative;
   border: none;
-  border-left: 1pt solid #ccc;
+  border-left: 1pt solid #CCC;
   padding: 0.5rem 0 0.5rem 1rem;
   font-size: 0.8em;
 }
-pre:before {
+pre:after {
   position: absolute;
   /*left: 0;*/
   /*top: 0;*/
   /*margin-top: -0.5rem;*/
-  margin-left: -3rem;
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  /*margin-left: -2.5rem;*/
   /*speak: none;*/
   font-style: normal;
   font-weight: 600;
   font-variant: normal;
   font-size: 0.8rem;
   text-transform: none;
-  color: #666;
-  
+  text-align: center;
+
+  margin-left: -1.5rem;
+  margin-top: 0.6rem;
+
+  top: 0;
+  width: 0.8rem;
+
   /* Console */
   line-height: 1;
-  padding: 0 0.3rem;
-  border: 1pt solid #666;
-  border-top-width: 2pt;
+  /*padding: 0 0.3rem;*/
+  /*border: 1pt solid #666;*/
+  /*border-top-width: 2pt;*/
 
-  content: ">";
+  /*font-family: 'Open Sans', Helvetica, Arial, sans-serif;*/
+  /*content: ">";*/
+  /*background-color: #000;*/
+  color: #000;
+
+  font-family: 'icomoon';
+  font-weight: normal;
+  font-style: normal;
+  /*padding: 0.2rem;*/
+  content: "\e600";
+}
+pre:before {
+  position: absolute;
+  top: 0;
+  left: -0.2rem;
+  width: 3pt;
+  border-top: 2rem solid #fff;
+  content: '';
 }
