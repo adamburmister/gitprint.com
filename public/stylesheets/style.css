@@ -1,32 +1,47 @@
 /* Space out content a bit */
 body {
-  padding-top: 20px;
+  background: #fff;
+  padding-top: 70px;
   padding-bottom: 20px;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.footer {
-  padding-right: 15px;
-  padding-left: 15px;
+#headerNav {
+  height: 5em;
+  padding: 0 1rem;
+  padding-top: 0.5em;
+  border-bottom: 1px solid #ccc;
+  background-color: #fff;
+}
+#headerNav .navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+#headerNav .navbar-brand em {
+  font-style: normal;
+  font-weight: normal;
+  color: #999;
+}
+#headerNav .btn {
+  margin-left: 0.5em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#headerNav .btn-print {
+  color: #fff;
+}
+#headerNav .btn-print:hover, #headerNav .btn-print:focus, #headerNav .btn-print:active {
+  color: inherit;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-}
-/* Make the masthead heading the same height as the navigation */
-.header h3 {
-  padding-bottom: 19px;
-  margin-top: 0;
-  margin-bottom: 0;
-  line-height: 40px;
+.btn .glyphicon {
+  margin-right: 0.5em;
 }
 
-/* Custom page footer */
 .footer {
-  padding-top: 19px;
-  color: #777;
+  margin-top: 2rem;
+  padding: 1rem;
+  color: #999;
   border-top: 1px solid #e5e5e5;
 }
 
@@ -36,41 +51,24 @@ body {
     max-width: 730px;
   }
 }
-.container-narrow > hr {
-  margin: 30px 0;
-}
 
-/* Main marketing message and sign up button */
 .hero {
   text-align: center;
-  border-bottom: 1px solid #e5e5e5;
+  padding: 3rem 0;
 }
 .hero h1 {
   font-size: 3em;
 }
 
+.overview {
+  padding: 1rem 2rem;
+  border: 1px solid #ccc;
+}
+.overview .btn {
+  margin-top: 3rem;
+  font-size: 1.5rem;
+}
+
 .error {
   padding: 0 2rem 2rem;
-}
-
-.btn .glyphicon {
-  margin-right: 0.5em;
-}
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .header,
-  .footer {
-    padding-right: 0;
-    padding-left: 0;
-  }
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .hero {
-    border-bottom: 0;
-  }
 }

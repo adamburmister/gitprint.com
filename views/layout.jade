@@ -14,15 +14,15 @@ html
       ga('create', 'UA-48971811-1', 'gitprint.com');
       ga('send', 'pageview');
   body
-    div.container
-      header.header
-        ul.nav.nav-pills.pull-right
-          li.active
-            a(href="https://gitprint.com") Home
+    nav#headerNav.navbar.navbar-default.navbar-fixed-top
+      .container-fluid
+        .navbar-header
+          a.navbar-brand(href="/") GitPrint <em>&ndash; Easily print GitHub markdown</em>
+        ul.nav.navbar-nav.navbar-right
           li
-            a(href="http://gitprint.com/jquery/jquery/") See an example
-        h3.logo.text-muted GitPrint.com
-
+            a.btn.btn-default.navbar-btn(href="/jquery/jquery/") See an example
+          
+    div.container
       block content
 
       footer.footer
