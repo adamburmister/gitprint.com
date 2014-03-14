@@ -1,4 +1,3 @@
-/* Space out content a bit */
 body {
   padding: 0;
   overflow: hidden;
@@ -16,6 +15,7 @@ body, .documentContainer {
   right: 0;
   height: auto;
 }
+
 iframe#document {
   width: 100%;
   height: 100%;
