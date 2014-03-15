@@ -13,3 +13,4 @@ TODO List:
 
 * Private repo printing
 * Chrome extension to add print button into GitHub markdown views
+* Printing of Gists
