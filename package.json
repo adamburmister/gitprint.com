@@ -1,5 +1,5 @@
 {
-  "name": "ghprint",
+  "name": "gitprint.com",
   "version": "0.0.1",
   "description": "Render GitHub markdown files for easy printing",
   "main": "index.js",
@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/adamburmister/gitprint.com",
   "devDependencies": {
-    "forever": "^0.10.11"
+    "forever": "^0.10.11",
+    "grunt": "~0.4.4",
+    "grunt-contrib-sass": "~0.7.3"
   },
   "dependencies": {
     "express": "~3.5.0",
@@ -35,5 +37,8 @@
     "jade": "~1.3.0",
     "markdown-pdf": "^2.2.0",
     "request": "^2.34.0"
+  },
+  "directories": {
+    "test": "test"
   }
 }

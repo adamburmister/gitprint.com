@@ -13,7 +13,7 @@ var REGEX = {
 };
 
 var MARKDOWN_OPTIONS = {
-  cssPath: __dirname + '/../public/stylesheets/print.css',
+  cssPath: __dirname + '/../public/css/print.css',
   paperBorder: '1cm',
   renderDelay: WAIT_FOR_RENDER_DELAY,
   runningsPath: __dirname + '/../lib/runnings.js',

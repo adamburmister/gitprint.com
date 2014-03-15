@@ -2,12 +2,11 @@ body {
   padding: 0;
   overflow: hidden;
   max-height: 100%;
-}
-body, .documentContainer {
   background: white url(/img/spinner.gif) no-repeat 50% 50%;
 }
 
 .documentContainer {
+  background: white url(/img/spinner.gif) no-repeat 50% 50%;
   position: absolute;
   top: 5em;
   bottom: 0;
