@@ -21,7 +21,13 @@ html
         return false;
       }
   body.printView
-    nav#headerNav.navbar.navbar-default.navbar-fixed-top
+
+    .noDirectPrintingWarning.visible-print
+      h1 Whoa! You can't print like that
+      p.lead Sorry, because of the way GitPrint works you can't print directly from your browser like you normally would.
+      p.lead Instead, click the "Print" button in the top right of this page. That will pop open the printer dialog box for the PDF document.
+
+    nav#headerNav.navbar.navbar-default.navbar-fixed-top.hidden-print
       .container-fluid
         .navbar-header
           a.navbar-brand(href="/") GitPrint <em>&ndash; Easily print GitHub markdown</em>
@@ -33,5 +39,5 @@ html
               span.glyphicon.glyphicon-print
               span Print
           
-    .documentContainer
+    .documentContainer.hidden-print
       iframe#document(src='?inline', width='100%', height='100%', scrolling='no', frameborder='no', onload='printFrame("document")')

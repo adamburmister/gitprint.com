@@ -4,6 +4,11 @@ body.printView {
   max-height: 100%;
   background: $printView-spinner-bg;
 
+  .noDirectPrintingWarning {
+    display: none;
+    padding: 60pt;
+  }
+
   .documentContainer {
     background: $printView-spinner-bg;
     position: absolute;
