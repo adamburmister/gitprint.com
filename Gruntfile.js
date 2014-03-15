@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     sass: {
       site: {
         options: {
-          style: 'expanded'
+          style: 'compressed'
         },
         files: {
           'public/css/main.css': 'public/scss/main.scss',
@@ -13,7 +13,7 @@ module.exports = function(grunt) {
       },
       print: {
         options: {
-          style: 'compressed'
+          style: 'expanded'
         },
         files: {
           'public/css/print.css': 'public/scss/print.scss',
