@@ -1,23 +1,22 @@
-@import "variables";
-
-body {
+body.printView {
   padding: 0;
   overflow: hidden;
   max-height: 100%;
-  background: white url(/img/spinner.gif) no-repeat 50% 50%;
-}
+  background: $printView-spinner-bg;
 
-.documentContainer {
-  background: white url(/img/spinner.gif) no-repeat 50% 50%;
-  position: absolute;
-  top: 5em;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: auto;
-}
+  .documentContainer {
+    background: $printView-spinner-bg;
+    position: absolute;
+    top: 5em;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+  }
 
-iframe#document {
-  width: 100%;
-  height: 100%;
+  iframe#document {
+    width: 100%;
+    height: 100%;
+  }
+
 }

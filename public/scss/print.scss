@@ -56,7 +56,7 @@ a {
 
 ins {
   background-color: #ff9;
-  color: #000;
+  color: $print-black;
   text-decoration: none;
 }
 
@@ -64,7 +64,7 @@ ins {
 
 mark {
   background-color: #ff9;
-  color: #000;
+  color: $print-black;
   font-style: italic;
   font-weight: bold;
 }
@@ -89,7 +89,7 @@ hr {
   display: block;
   height: 1px;
   border: 0;
-  border-top: 1px solid #cccccc;
+  border-top: 1px solid $print-gray-light;
   margin: 1em 0;
   padding: 0;
 }
@@ -319,7 +319,7 @@ BDO {
 /* http://www.w3.org/TR/CSS2/page.html */
 
 body {
-  color: #000;
+  color: $print-black;
   font-family: 'Merriweather', Georgia, "Times New Roman",  Times, serif;
   font-size: 10pt;
   line-height: 1.5;
@@ -329,12 +329,12 @@ body {
 
 a {
   text-decoration: none;
-  color: #000;
+  color: $print-black;
   &:link, &:visited {
     text-decoration: none;
   }
   &:link:after {
-    color: #666;
+    color: $print-gray;
     font-family: 'Open Sans', Helvetica, Arial, sans;
     font-size: 0.8em;
     content: " (" attr(href) ") ";
@@ -344,12 +344,12 @@ a {
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Open Sans', Helvetica, Arial, sans;
   page-break-after: avoid;
-  border-bottom: 1pt solid #ccc;
+  border-bottom: 1pt solid $print-gray-light;
   margin: 1.5em 0 0.5em 0;
 }
 
 h1 {
-  border-bottom: 4pt solid #ccc;
+  border-bottom: 4pt solid $print-gray-light;
   padding-bottom: 0.5em;
   margin-top: 1em;
   margin-bottom: 1em;
@@ -373,14 +373,14 @@ blockquote {
 }
 
 figure {
-  border: 1pt solid #000;
+  border: 1pt solid $print-black;
   padding: 12pt;
   text-align: center;
 }
 
 figcaption {
   font-style: italic;
-  color: #aaa;
+  color: $print-gray-light;
   clear: both;
 }
 
@@ -392,7 +392,7 @@ img {
 pre {
   position: relative;
   border: none;
-  border-left: 1pt solid #CCC;
+  border-left: 1pt solid $print-gray-light;
   padding: 0.5rem 0 0.5rem 1rem;
   font-size: 0.8em;
   &:after {
@@ -408,7 +408,7 @@ pre {
     top: 0;
     width: 0.8rem;
     line-height: 1;
-    color: #333;
+    color: $print-gray-dark;
     font-family: 'icomoon';
     font-weight: normal;
     font-style: normal;

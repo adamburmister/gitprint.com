@@ -1,11 +1,10 @@
-body {
+body.printView {
   padding: 0;
   overflow: hidden;
   max-height: 100%;
   background: white url(/img/spinner.gif) no-repeat 50% 50%;
 }
-
-.documentContainer {
+body.printView .documentContainer {
   background: white url(/img/spinner.gif) no-repeat 50% 50%;
   position: absolute;
   top: 5em;
@@ -14,8 +13,7 @@ body {
   right: 0;
   height: auto;
 }
-
-iframe#document {
+body.printView iframe#document {
   width: 100%;
   height: 100%;
 }

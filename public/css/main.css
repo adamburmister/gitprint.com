@@ -1,0 +1,92 @@
+body {
+  background: #fff;
+  padding-top: 70px;
+  padding-bottom: 20px;
+}
+
+#headerNav {
+  height: 5em;
+  padding: 0 1rem;
+  padding-top: 0.5em;
+  border-bottom: 1px solid #ccc;
+  background-color: #fff;
+}
+#headerNav .navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+#headerNav .navbar-brand em {
+  font-style: normal;
+  font-weight: normal;
+  color: #999;
+}
+#headerNav .btn {
+  margin-left: 0.5em;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#headerNav .btn-print {
+  color: #fff;
+}
+#headerNav .btn-print:hover, #headerNav .btn-print:focus, #headerNav .btn-print:active {
+  color: inherit;
+}
+
+.btn .glyphicon {
+  margin-right: 0.5em;
+}
+
+.footer {
+  margin-top: 2rem;
+  padding: 1rem;
+  color: #999;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.hero {
+  text-align: center;
+  padding: 3rem 0;
+}
+.hero h1 {
+  font-size: 3em;
+}
+
+.overview {
+  padding: 1rem 2rem;
+  border: 1px solid #ccc;
+}
+.overview .btn {
+  margin-top: 3rem;
+  font-size: 1.5rem;
+}
+
+.error {
+  padding: 0 2rem 2rem;
+}
+
+body.printView {
+  padding: 0;
+  overflow: hidden;
+  max-height: 100%;
+  background: white url(/img/spinner.gif) no-repeat 50% 50%;
+}
+body.printView .documentContainer {
+  background: white url(/img/spinner.gif) no-repeat 50% 50%;
+  position: absolute;
+  top: 5em;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: auto;
+}
+body.printView iframe#document {
+  width: 100%;
+  height: 100%;
+}
