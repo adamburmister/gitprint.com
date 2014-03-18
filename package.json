@@ -4,7 +4,8 @@
   "description": "Render GitHub markdown files for easy printing",
   "main": "index.js",
   "scripts": {
-    "start": "grunt && node ./bin/www"
+    "start": "grunt && node ./bin/www",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
