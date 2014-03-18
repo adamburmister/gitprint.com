@@ -8,8 +8,7 @@ var WAIT_FOR_RENDER_DELAY = 1500;
 var MAX_FILENAME_LEN = 60;
 
 var REGEX = {
-  BlobMarkdown: /^(.*)\/blob\/master\/(.+\.(md|mdown|markdown))$/,
-  TrailingSlash: /(.*)\/$/,
+  TrailingSlash: /(.+)\/+$/,
 };
 
 var MARKDOWN_OPTIONS = {
@@ -85,10 +84,33 @@ function convert(req, res, url, disposition) {
   });
 }
 
-exports.convertMarkdownToPdf = function(req, res){
-  var githubPath = req.params[0].replace(REGEX.BlobMarkdown, '$1/master/$2')
-  var url = 'https://raw.github.com/' + githubPath;
+exports.convertGistMarkdownToPdf = function(req, res) {
+  console.log("convertGistMarkdownToPdf");
 
+  // https://gist.githubusercontent.com
+  var githubPath = '';
+  var url = 'https://gist.githubusercontent.com/' + githubPath;
+  console.log(url);
+  if(Object.keys(req.query).indexOf('download') !== -1) {
+    convert(req, res, url, DISPOSITION.ATTACHMENT);
+  } else if(Object.keys(req.query).indexOf('inline') !== -1) {
+    convert(req, res, url, DISPOSITION.INLINE);
+  } else {
+    res.render('printView', { pageTitle: githubPath });
+  }
+}
+
+exports.convertMarkdownToPdf = function(req, res){
+  console.log("convertMarkdownToPdf", req.params);
+  var githubPath;
+  if(req.params[1] === 'blob') {
+    githubPath = req.params[0] + '/' + req.params[2] + '/' + req.params[3];
+  } else {
+    githubPath = req.params[0] + '/' + req.params[1] + '/' + req.params[2] + '/' + req.params[3];
+  }
+
+  var url = 'https://raw.github.com' + githubPath;
+  console.log(url);
   if(Object.keys(req.query).indexOf('download') !== -1) {
     convert(req, res, url, DISPOSITION.ATTACHMENT);
   } else if(Object.keys(req.query).indexOf('inline') !== -1) {
@@ -99,7 +121,9 @@ exports.convertMarkdownToPdf = function(req, res){
 };
 
 exports.convertRootMarkdownToPdf = function(req, res){
+  console.log("convertRootMarkdownToPdf");
   var githubPath = req.params[0].replace(REGEX.TrailingSlash, '$1'); // strip trailing slash
+
   if(Object.keys(req.query).indexOf('download') !== -1 || Object.keys(req.query).indexOf('inline') !== -1) {
     var requestOptions = {
       url: 'https://api.github.com/repos/' + githubPath + '/readme',
@@ -115,6 +139,7 @@ exports.convertRootMarkdownToPdf = function(req, res){
     request(requestOptions, function(error, response, body) {
       var readmeFilename = body["path"] || 'README.md';
       var url = 'https://raw.github.com/' + githubPath + '/master/' + readmeFilename;
+      console.log(url);
       convert(req, res, url, disposition);
     });
   } else {

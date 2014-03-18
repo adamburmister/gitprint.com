@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+
     sass: {
       site: {
         options: {
@@ -20,6 +21,7 @@ module.exports = function(grunt) {
         }
       }
     },
+
     // watch: {
     //   files: ['<%= jshint.files %>'],
     //   tasks: ['jshint', 'qunit']

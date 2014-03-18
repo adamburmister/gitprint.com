@@ -26,8 +26,11 @@ app.use(app.router);
 // Homepage
 app.get('/', routes.index);
 
+// Gists
+app.get(/^\/([0-9A-Za-z-]+\/[0-9a-f]+)\/raw\//, routes.convertGistMarkdownToPdf);
+
 // blob markdown
-app.get(/^\/(.*\/.*\/.*\.(md|mdown|markdown))$/, routes.convertMarkdownToPdf);
+app.get(/^(.+)\/(.+)\/(.+)\/(.+\.(md|mdown|markdown))$/, routes.convertMarkdownToPdf);
 
 // repo readme
 app.get(/^\/(.*\/.*\/?)$/, routes.convertRootMarkdownToPdf);
