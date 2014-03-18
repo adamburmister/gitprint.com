@@ -5,7 +5,7 @@ var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var urlHelper = require("./lib/url_helper");
 var routes = require('./routes');
 
 var app = express();
@@ -26,11 +26,14 @@ app.use(app.router);
 // Homepage
 app.get('/', routes.index);
 
+// Gists
+app.get(urlHelper.REGEX.Gist, routes.convertGistMarkdownToPdf);
+
 // blob markdown
-app.get(/^\/(.*\/.*\/.*\.(md|mdown|markdown))$/, routes.convertMarkdownToPdf);
+app.get(urlHelper.REGEX.RepoMarkdownFile, routes.convertMarkdownToPdf);
 
 // repo readme
-app.get(/^\/(.*\/.*\/?)$/, routes.convertRootMarkdownToPdf);
+app.get(urlHelper.REGEX.RepoIndex, routes.convertRopoIndexMarkdownToPdf);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
