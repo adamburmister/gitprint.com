@@ -10,22 +10,23 @@ chai.use(chaiAsPromised);
 describe('UrlTranslationHelper', function(){
   describe('boolean tests', function () {
     describe('#isRepoIndex', function () {
-      it('flags /adamburmister/gitprint.com as index', function(done){
+
+      it('flags /adamburmister/gitprint.com as index', function() {
         var path = "/adamburmister/gitprint.com";
         urlHelper.isRepoIndex(path).should.equal(true);
       });
 
-      it('flags /adamburmister/gitprint.com/ as index', function(done){
+      it('flags /adamburmister/gitprint.com/ as index', function() {
         var path = "/adamburmister/gitprint.com/";
         urlHelper.isRepoIndex(path).should.equal(true);
       });
 
-      it('flags /adamburmister/gitprint.com/master/ as index', function(done){
+      it('flags /adamburmister/gitprint.com/master/ as index', function() {
         var path = "/adamburmister/gitprint.com/master/";
         urlHelper.isRepoIndex(path).should.equal(true);
       });
 
-      it('flags /adamburmister/gitprint.com/blob/master as a index/', function(done){
+      it('flags /adamburmister/gitprint.com/blob/master as a index/', function() {
         var path = "/adamburmister/gitprint.com/blob/master/";
         urlHelper.isRepoIndex(path).should.equal(true);
       });
@@ -33,22 +34,22 @@ describe('UrlTranslationHelper', function(){
     });
 
     describe('#isRepoFile', function () {
-      it('flags /adamburmister/gitprint.com/master/README.md as a repo file', function(done){
+      it('flags /adamburmister/gitprint.com/master/README.md as a repo file', function() {
         var path = "/adamburmister/gitprint.com/master/README.md";
         urlHelper.isRepoFile(path).should.equal(true);
       });
 
-      it('flags /adamburmister/gitprint.com/blob/master/README.md as a repo file', function(done){
+      it('flags /adamburmister/gitprint.com/blob/master/README.md as a repo file', function() {
         var path = "/adamburmister/gitprint.com/blob/master/README.md";
         urlHelper.isRepoFile(path).should.equal(true);
       });
 
-      it('flags /adamburmister/gitprint.com/blob/feature/github-api/README.md as a repo file', function(done){
+      it('flags /adamburmister/gitprint.com/blob/feature/github-api/README.md as a repo file', function() {
         var path = "/adamburmister/gitprint.com/blob/feature/github-api/README.md";
         urlHelper.isRepoFile(path).should.equal(true);
       });
 
-      it('flags /adamburmister/gitprint.com/master/test/examples/README.md as a repo file', function(done){
+      it('flags /adamburmister/gitprint.com/master/test/examples/README.md as a repo file', function() {
         var path = "/adamburmister/gitprint.com/master/test/examples/README.md";
         urlHelper.isRepoFile(path).should.equal(true);
       });
@@ -60,122 +61,52 @@ describe('UrlTranslationHelper', function(){
   });
 
   describe('translation', function () {
-    it('should translate http://gitprint.com/adamburmister/gitprint.com', function(done){
+    it('should translate http://gitprint.com/adamburmister/gitprint.com', function() {
       var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com";
       var expected = "https://raw.github.com/adamburmister/gitprint.com/master/README.md";
-      urlHelper.translate(gitprintUrl).should.eventually.equal(expected);
+      Q.when(urlHelper.translate(gitprintUrl)).should.eventually.equal(expected);
     });
 
     it('should translate http://gitprint.com/adamburmister/gitprint.com/', function(done){
       var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/";
       var expected = "https://raw.github.com/adamburmister/gitprint.com/master/README.md";
-      var valueOrPromise = urlHelper.translate(gitprintUrl);
-      Q.when(valueOrPromise, 
-        function success(actual) {
-          // console.log(actual == expected, actual, expected);
-          assert.equal(actual, expected);
-          done();
-        },
-        function fail(msg) {
-          assert.error(msg);
-          done();
-        });
+      Q.when(urlHelper.translate(gitprintUrl)).should.eventually.equal(expected);
     });
 
     it('should translate http://gitprint.com/adamburmister/gitprint.com/master/', function(done){
       var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/master/";
       var expected = "https://raw.github.com/adamburmister/gitprint.com/master/README.md";
-      var valueOrPromise = urlHelper.translate(gitprintUrl);
-      Q.when(valueOrPromise, 
-        function success(actual) {
-          // console.log(actual == expected, actual, expected);
-          assert.equal(actual, expected);
-          done();
-        },
-        function fail(msg) {
-          assert.error(msg);
-          done();
-        });
+      Q.when(urlHelper.translate(gitprintUrl)).should.eventually.equal(expected);
     });
 
     it('should translate http://gitprint.com/adamburmister/gitprint.com/master/README.md', function(done){
       var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/master/README.md";
       var expected = "https://raw.github.com/adamburmister/gitprint.com/master/README.md";
-      var valueOrPromise = urlHelper.translate(gitprintUrl);
-      Q.when(valueOrPromise, 
-        function success(actual) {
-          // console.log(actual == expected, actual, expected);
-          assert.equal(actual, expected);
-          done();
-        },
-        function fail(msg) {
-          assert.error(msg);
-          done();
-        });
+      Q.when(urlHelper.translate(gitprintUrl)).should.eventually.equal(expected);
     });
 
     it('should translate http://gitprint.com/adamburmister/gitprint.com/blob/master/', function(done){
       var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/blob/master/";
       var expected = "https://raw.github.com/adamburmister/gitprint.com/master/README.md";
-      var valueOrPromise = urlHelper.translate(gitprintUrl);
-      Q.when(valueOrPromise, 
-        function success(actual) {
-          // console.log(actual == expected, actual, expected);
-          assert.equal(actual, expected);
-          done();
-        },
-        function fail(msg) {
-          assert.error(msg);
-          done();
-        });
+      Q.when(urlHelper.translate(gitprintUrl)).should.eventually.equal(expected);
     });
 
     it('should translate http://gitprint.com/adamburmister/gitprint.com/blob/master/README.md', function(done){
       var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/blob/master/README.md";
       var expected = "https://raw.github.com/adamburmister/gitprint.com/master/README.md";
-      var valueOrPromise = urlHelper.translate(gitprintUrl);
-      Q.when(valueOrPromise, 
-        function success(actual) {
-          // console.log(actual == expected, actual, expected);
-          assert.equal(actual, expected);
-          done();
-        },
-        function fail(msg) {
-          assert.error(msg);
-          done();
-        });
+      Q.when(urlHelper.translate(gitprintUrl)).should.eventually.equal(expected);
     });
 
     it('should translate http://gitprint.com/adamburmister/gitprint.com/blob/feature/github-api/README.md', function(done){
       var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/blob/feature/github-api/README.md";
       var expected = "https://raw.github.com/adamburmister/gitprint.com/feature/github-api/README.md";
-      var valueOrPromise = urlHelper.translate(gitprintUrl);
-      Q.when(valueOrPromise, 
-        function success(actual) {
-          // console.log(actual == expected, actual, expected);
-          assert.equal(actual, expected);
-          done();
-        },
-        function fail(msg) {
-          assert.error(msg);
-          done();
-        });
+      Q.when(urlHelper.translate(gitprintUrl)).should.eventually.equal(expected);
     });
 
     it('should translate http://gitprint.com/adamburmister/gitprint.com/master/test/examples/README.md', function(done){
       var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/master/test/examples/README.md";
       var expected = "https://raw.github.com/adamburmister/gitprint.com/master/test/examples/README.md";
-      var valueOrPromise = urlHelper.translate(gitprintUrl);
-      Q.when(valueOrPromise, 
-        function success(actual) {
-          // console.log(actual == expected, actual, expected);
-          assert.equal(actual, expected);
-          done();
-        },
-        function fail(msg) {
-          assert.error(msg);
-          done();
-        });
+      Q.when(urlHelper.translate(gitprintUrl)).should.eventually.equal(expected);
     });
   });
 
