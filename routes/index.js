@@ -45,7 +45,8 @@ function convert(req, res, url, disposition) {
       var outputPath = __dirname + '/../cache/' + hash + '-' + etag + '.pdf';
 
       fs.exists(outputPath, function(exists) {
-        var pdfFilename = 'gitprint__' + (req.params[0].replace(/[^a-zA-Z0-9-_\.]/gi,'-')).substr(0, MAX_FILENAME_LEN) + '.pdf';
+        console.log(req.params);
+        var pdfFilename = 'gitprint__' + (req.path.replace(/[^a-zA-Z0-9-_\.]/gi,'-')).substr(0, MAX_FILENAME_LEN) + '.pdf';
         var headerContentDisposition = (disposition || DEFAULT_DISPOSITION) + '; filename="' + pdfFilename + '"';
         
         res.setHeader('Content-disposition', headerContentDisposition);
