@@ -321,6 +321,10 @@ a:link:after {
   font-size: 0.8em;
   content: " (" attr(href) ") ";
 }
+a:link:after:contains('http://'), a:link:after:contains('https://') {
+  display: none;
+  content: '';
+}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Open Sans', Helvetica, Arial, sans;

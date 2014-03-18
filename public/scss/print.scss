@@ -338,6 +338,12 @@ a {
     font-family: 'Open Sans', Helvetica, Arial, sans;
     font-size: 0.8em;
     content: " (" attr(href) ") ";
+
+    &:contains('http://'), 
+    &:contains('https://') {
+      display: none;
+      content: '';
+    }
   }
 }
 
