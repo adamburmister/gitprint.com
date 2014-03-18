@@ -121,10 +121,9 @@ exports.convertRopoIndexMarkdownToPdf = function(req, res){
     if(Object.keys(req.query).indexOf('download') !== -1) {
       disposition = DISPOSITION.ATTACHMENT;
     }
-     Q.when(urlHelper.translate(githubPath))
-      .then(function(url) {
-        convert(req, res, url, disposition);
-      });
+    Q.when(urlHelper.translate(githubPath)).then(function(url) {
+      convert(req, res, url, disposition);
+    });
   } else {
     res.render('printView', { pageTitle: githubPath });
   }

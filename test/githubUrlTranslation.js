@@ -93,6 +93,14 @@ describe('UrlHelper', function(){
           urlHelper.translate(gitprintUrl).should.eventually.equal(expected)
         ]).should.notify(done)
       });
+
+      it('should translate https://gitprint.com/adamburmister/gitprint.com/tree/master/examples', function(done){
+        var gitprintUrl = "https://gitprint.com/adamburmister/gitprint.com/tree/master/examples";
+        var expected = "https://raw.github.com/adamburmister/gitprint.com/tree/master/examples/README.md";
+        Q.all([
+          urlHelper.translate(gitprintUrl).should.eventually.equal(expected)
+        ]).should.notify(done)
+      });
     });
 
     describe('repo file', function () {
@@ -119,6 +127,7 @@ describe('UrlHelper', function(){
         var expected = "https://raw.github.com/adamburmister/gitprint.com/master/test/examples/README.md";
         urlHelper.translate(gitprintUrl).should.equal(expected);
       });
+
     });
   });
 
