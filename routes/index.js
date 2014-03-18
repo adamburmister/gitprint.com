@@ -2,14 +2,12 @@ var fs = require('fs');
 var markdownpdf = require('markdown-pdf')
 var request = require('request');
 var crypto = require('crypto');
+var Q = require('q');
+var urlHelper = require("../lib/url_helper");
 
 // How long to wait for the view to render
 var WAIT_FOR_RENDER_DELAY = 1500;
 var MAX_FILENAME_LEN = 60;
-
-var REGEX = {
-  TrailingSlash: /(.+)\/+$/,
-};
 
 var MARKDOWN_OPTIONS = {
   cssPath: __dirname + '/../public/css/print.css',
@@ -87,30 +85,23 @@ function convert(req, res, url, disposition) {
 exports.convertGistMarkdownToPdf = function(req, res) {
   console.log("convertGistMarkdownToPdf");
 
-  // https://gist.githubusercontent.com
-  var githubPath = '';
-  var url = 'https://gist.githubusercontent.com/' + githubPath;
-  console.log(url);
-  if(Object.keys(req.query).indexOf('download') !== -1) {
-    convert(req, res, url, DISPOSITION.ATTACHMENT);
-  } else if(Object.keys(req.query).indexOf('inline') !== -1) {
-    convert(req, res, url, DISPOSITION.INLINE);
-  } else {
-    res.render('printView', { pageTitle: githubPath });
-  }
+  // // https://gist.githubusercontent.com
+  // var githubPath = '';
+  // 'https://gist.githubusercontent.com/' + githubPath;
+  
+  // if(Object.keys(req.query).indexOf('download') !== -1) {
+  //   convert(req, res, url, DISPOSITION.ATTACHMENT);
+  // } else if(Object.keys(req.query).indexOf('inline') !== -1) {
+  //   convert(req, res, url, DISPOSITION.INLINE);
+  // } else {
+  //   res.render('printView', { pageTitle: githubPath });
+  // }
 }
 
 exports.convertMarkdownToPdf = function(req, res){
-  console.log("convertMarkdownToPdf", req.params);
-  var githubPath;
-  if(req.params[1] === 'blob') {
-    githubPath = req.params[0] + '/' + req.params[2] + '/' + req.params[3];
-  } else {
-    githubPath = req.params[0] + '/' + req.params[1] + '/' + req.params[2] + '/' + req.params[3];
-  }
+  var githubPath = req.path;
+  var url = urlHelper.translate(githubPath);
 
-  var url = 'https://raw.github.com' + githubPath;
-  console.log(url);
   if(Object.keys(req.query).indexOf('download') !== -1) {
     convert(req, res, url, DISPOSITION.ATTACHMENT);
   } else if(Object.keys(req.query).indexOf('inline') !== -1) {
@@ -120,28 +111,19 @@ exports.convertMarkdownToPdf = function(req, res){
   }
 };
 
-exports.convertRootMarkdownToPdf = function(req, res){
-  console.log("convertRootMarkdownToPdf");
-  var githubPath = req.params[0].replace(REGEX.TrailingSlash, '$1'); // strip trailing slash
+exports.convertRopoIndexMarkdownToPdf = function(req, res){
+  var githubPath = req.path;
+  var url;
+  var disposition = DISPOSITION.INLINE;
 
   if(Object.keys(req.query).indexOf('download') !== -1 || Object.keys(req.query).indexOf('inline') !== -1) {
-    var requestOptions = {
-      url: 'https://api.github.com/repos/' + githubPath + '/readme',
-      json:true,
-      headers: { 'User-Agent': 'gitprint.com' }
-    };
-    var disposition = DISPOSITION.INLINE;
     if(Object.keys(req.query).indexOf('download') !== -1) {
       disposition = DISPOSITION.ATTACHMENT;
     }
-
-    // Ask Github what README file to use
-    request(requestOptions, function(error, response, body) {
-      var readmeFilename = body["path"] || 'README.md';
-      var url = 'https://raw.github.com/' + githubPath + '/master/' + readmeFilename;
-      console.log(url);
-      convert(req, res, url, disposition);
-    });
+     Q.when(urlHelper.translate(githubPath))
+      .then(function(url) {
+        convert(req, res, url, disposition);
+      });
   } else {
     res.render('printView', { pageTitle: githubPath });
   }
