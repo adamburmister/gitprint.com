@@ -301,7 +301,7 @@ BDO[DIR="rtl"] {
 /* http://www.w3.org/TR/CSS2/page.html */
 body {
   color: black;
-  font-family: 'Merriweather', Georgia, "Times New Roman",  Times, serif;
+  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
   font-size: 10pt;
   line-height: 1.5;
   margin: 0;
@@ -317,7 +317,7 @@ a:link, a:visited {
 }
 a:link:after {
   color: #666666;
-  font-family: 'Open Sans', Helvetica, Arial, sans;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
   font-size: 0.8em;
   content: " (" attr(href) ") ";
 }
@@ -327,7 +327,7 @@ a:link:after:contains('http://'), a:link:after:contains('https://') {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Open Sans', Helvetica, Arial, sans;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
   page-break-after: avoid;
   border-bottom: 1pt solid #cccccc;
   margin: 1.5em 0 0.5em 0;
