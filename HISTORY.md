@@ -8,5 +8,5 @@
 
 ## v0.0.3 - 22 March 2014
 
-* Added partial support for Wiki printing (known issue: it currently renders raw Wiki-specific markup)
+* Added support for Wiki printing via markdown preprocessor
 * Added tests for wiki URLs
