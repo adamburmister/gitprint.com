@@ -58,6 +58,38 @@ describe('UrlHelper', function(){
     describe('gists', function () {
       // todo
     });
+
+    describe('#isWiki', function() {
+      describe('indexes', function() {
+        it('flags /adamburmister/gitprint.com/wiki as a wiki file', function() {
+          var path = "/adamburmister/gitprint.com/wiki";
+          urlHelper.isWikiFile(path).should.equal(true);
+        });
+
+        it('flags /adamburmister/gitprint.com/wiki/ as a wiki file', function() {
+          var path = "/adamburmister/gitprint.com/wiki/";
+          urlHelper.isWikiFile(path).should.equal(true);
+        });
+
+        it('flags /adamburmister/gitprint.com/wiki/Contribute as a wiki file', function() {
+          var path = "/adamburmister/gitprint.com/wiki/Contribute";
+          urlHelper.isWikiFile(path).should.equal(true);
+        });
+
+        it('flags /adamburmister/gitprint.com/wiki/Contribute/ as a wiki file', function() {
+          var path = "/adamburmister/gitprint.com/wiki/Contribute/";
+          urlHelper.isWikiFile(path).should.equal(true);
+        });
+      });
+
+      describe('revisions', function () {
+        it('flags /adamburmister/gitprint.com/wiki/Contribute/b8404dfc027a06ec82276dd31188e6c85c87487b as a wiki file', function() {
+          var path = "/adamburmister/gitprint.com/wiki/Contribute/b8404dfc027a06ec82276dd31188e6c85c87487b";
+          urlHelper.isWikiFile(path).should.equal(true);
+        });
+      })
+      
+    });
   });
 
   describe('translate', function () {
@@ -129,6 +161,15 @@ describe('UrlHelper', function(){
       });
 
     });
+
+    describe('wiki file', function() {
+      it('should translate https://gitprint.com/adamburmister/gitprint.com/wiki/Contribute', function () {
+        var gitprintUrl = 'https://gitprint.com/adamburmister/gitprint.com/wiki/Contribute';
+        var expected = 'https://raw.github.com/wiki/adamburmister/gitprint.com/Contribute.md'
+        urlHelper.translate(gitprintUrl).should.equal(expected);
+      });
+    });
+
   });
 
 })
