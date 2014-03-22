@@ -163,6 +163,20 @@ describe('UrlHelper', function(){
     });
 
     describe('wiki file', function() {
+      describe('indexes', function() {
+        it('should translate https://gitprint.com/adamburmister/gitprint.com/wiki', function () {
+          var gitprintUrl = 'https://gitprint.com/adamburmister/gitprint.com/wiki';
+          var expected = 'https://raw.github.com/wiki/adamburmister/gitprint.com/home.md'
+          urlHelper.translate(gitprintUrl).should.equal(expected);
+        });
+
+        it('should translate https://gitprint.com/adamburmister/gitprint.com/wiki/', function () {
+          var gitprintUrl = 'https://gitprint.com/adamburmister/gitprint.com/wiki/';
+          var expected = 'https://raw.github.com/wiki/adamburmister/gitprint.com/home.md'
+          urlHelper.translate(gitprintUrl).should.equal(expected);
+        });
+      });
+
       it('should translate https://gitprint.com/adamburmister/gitprint.com/wiki/Contribute', function () {
         var gitprintUrl = 'https://gitprint.com/adamburmister/gitprint.com/wiki/Contribute';
         var expected = 'https://raw.github.com/wiki/adamburmister/gitprint.com/Contribute.md'
