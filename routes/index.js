@@ -121,9 +121,9 @@ exports.convertWikiMarkdownToPdf = function(req, res){
   });
 
   if(Object.keys(req.query).indexOf('download') !== -1) {
-    convert(req, res, url, DISPOSITION.ATTACHMENT/*, preProc*/);
+    convert(req, res, url, DISPOSITION.ATTACHMENT, preProc);
   } else if(Object.keys(req.query).indexOf('inline') !== -1) {
-    convert(req, res, url, DISPOSITION.INLINE/*, preProc*/);
+    convert(req, res, url, DISPOSITION.INLINE, preProc);
   } else {
     res.render('printView', { pageTitle: githubPath });
   }
