@@ -3,6 +3,12 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
 
+    // Clean the cache
+    clean: {
+      cache: 'cache/*.pdf'
+    },
+
+    // Compile stylesheets
     sass: {
       site: {
         options: {
@@ -29,9 +35,10 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   grunt.registerTask('test', []);
 
-  grunt.registerTask('default', ['sass']);
+  grunt.registerTask('default', ['clean', 'sass']);
 
 };
