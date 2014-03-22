@@ -28,12 +28,12 @@
     "grunt": "~0.4.4",
     "grunt-contrib-sass": "~0.7.3",
     "mocha": "~1.18.0",
-    "q": "~1.0.1",
     "chai": "~1.9.0",
     "chai-as-promised": "~4.1.1",
     "grunt-contrib-clean": "^0.5.0"
   },
   "dependencies": {
+    "q": "~1.0.1",
     "express": "~3.5.0",
     "static-favicon": "~1.0.0",
     "morgan": "~1.0.0",
@@ -44,7 +44,10 @@
     "markdown-pdf": "^2.2.0",
     "request": "^2.34.0",
     "octonode": "~0.5.0",
-    "q": "~1.0.1"
+    "split": "^0.3.0",
+    "through": "^2.3.4",
+    "duplexer": "^0.1.1",
+    "underscore": "^1.6.0"
   },
   "directories": {
     "test": "test"

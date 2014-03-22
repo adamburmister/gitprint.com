@@ -1,9 +1,11 @@
+var _ = require('underscore');
 var fs = require('fs');
 var markdownpdf = require('markdown-pdf')
 var request = require('request');
 var crypto = require('crypto');
 var Q = require('q');
-var urlHelper = require("../lib/url_helper");
+var urlHelper = require('../lib/url_helper');
+var wikiMarkdownPreprocessor = require('../lib/wiki_markdown_preprocessor');
 
 // How long to wait for the view to render
 var WAIT_FOR_RENDER_DELAY = 1500;
@@ -24,10 +26,14 @@ var DEFAULT_DISPOSITION = DISPOSITION.INLINE;
 
 /**
  * Convert a github raw URL to PDF and send it to the client
+ * @param {object} request
+ * @param {object} response
  * @param {string} url
  * @param {string} disposition ('inline' | 'attachment')
+ * @param {function} pre-process markdown
+ * @param {function} pre-process html
  */
-function convert(req, res, url, disposition) {
+function convert(req, res, url, disposition, preProcessMd, preProcessHtml) {
   var requestOptions = {
     method: 'HEAD',
     uri: url,
@@ -40,7 +46,7 @@ function convert(req, res, url, disposition) {
       // The HEAD request worked, no check the cache for a PDF
 
       // Where are we saving this file?
-      var hash = crypto.createHash('md5').update(url).digest("hex"); // fingerprint path
+      var hash = crypto.createHash('md5').update(url).digest('hex'); // fingerprint path
       var etag = (response.headers.etag || 'no_etag').replace(/"/g,''); // get the etag (stripping quotes)
       var outputPath = __dirname + '/../cache/' + hash + '-' + etag + '.pdf';
 
@@ -61,7 +67,16 @@ function convert(req, res, url, disposition) {
           requestOptions.method = 'GET';
           request(requestOptions, function (error, response, body) {
             if (!error && response.statusCode == 200) {
-              markdownpdf(MARKDOWN_OPTIONS).from.string(body).to(outputPath, function (data) {
+              var options = _.extend({}, MARKDOWN_OPTIONS);
+              // Extend md options with any processors
+              if(preProcessMd) {
+                options.preProcessMd = preProcessMd;
+              }
+              if(preProcessHtml) {
+                options.preProcessHtml = preProcessHtml;
+              }
+
+              markdownpdf(options).from.string(body).to(outputPath, function (data) {
                 var stream = fs.createReadStream(outputPath);                
                 stream.pipe(res);
               });
@@ -96,7 +111,24 @@ exports.convertGistMarkdownToPdf = function(req, res) {
   // } else {
   //   res.render('printView', { pageTitle: githubPath });
   // }
-}
+};
+
+exports.convertWikiMarkdownToPdf = function(req, res){
+  var githubPath = req.path;
+  var url = urlHelper.translate(githubPath);
+  var preProc = wikiMarkdownPreprocessor.build({
+    baseUrl: 'foo'
+  });
+
+  if(Object.keys(req.query).indexOf('download') !== -1) {
+    convert(req, res, url, DISPOSITION.ATTACHMENT/*, preProc*/);
+  } else if(Object.keys(req.query).indexOf('inline') !== -1) {
+    convert(req, res, url, DISPOSITION.INLINE/*, preProc*/);
+  } else {
+    res.render('printView', { pageTitle: githubPath });
+  }
+};
+
 
 exports.convertMarkdownToPdf = function(req, res){
   var githubPath = req.path;

@@ -29,6 +29,9 @@ app.get('/', routes.index);
 // Gists
 app.get(urlHelper.REGEX.Gist, routes.convertGistMarkdownToPdf);
 
+// Wiki
+app.get(urlHelper.REGEX.WikiFile, routes.convertWikiMarkdownToPdf);
+
 // blob markdown
 app.get(urlHelper.REGEX.RepoMarkdownFile, routes.convertMarkdownToPdf);
 
