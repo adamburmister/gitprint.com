@@ -13,8 +13,9 @@ describe('Relative URL support', function(){
     var relativePath = 'Documentation/assets/logo.png';
     var input = '![example-image](' + relativePath + ')';
     var baseUrl = 'http://baseurl';
-    var expected = '![example-image](' + baseUrl + relativePath + ')';
-    // PENDING
+    var result = '';
+    var expected = '![example-image](' + baseUrl + '/' + relativePath + ')';
+    result.should.equal(expected);
   })
 
 });
