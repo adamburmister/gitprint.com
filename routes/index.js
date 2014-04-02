@@ -5,7 +5,12 @@ var request = require('request');
 var crypto = require('crypto');
 var Q = require('q');
 var urlHelper = require('../lib/url_helper');
+
+/* --- PIPELINE --- */
 var wikiMarkdownPreprocessor = require('../lib/wiki_markdown_preprocessor');
+var imgPreprocessor = require('../lib/relative_image_preprocessor');
+
+/* --- CONSTANTS --- */
 
 // How long to wait for the view to render
 var WAIT_FOR_RENDER_DELAY = 1500;
@@ -23,6 +28,8 @@ var DISPOSITION = {
   ATTACHMENT: 'attachment',
 }
 var DEFAULT_DISPOSITION = DISPOSITION.INLINE;
+
+/* ---- METHODS --- */
 
 /**
  * Convert a github raw URL to PDF and send it to the client
