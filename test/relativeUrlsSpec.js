@@ -50,6 +50,20 @@ describe('Relative URL support', function(){
       stream.write(input);
     });
 
+
+    it('should allow for alt text after the image reference', function(done) {
+      var input = '![imgA](imgA.png "alt text at end")';
+      var expected = '![imgA](' + _baseUrl + '/' + 'imgA.png "alt text at end")';
+
+      var stream = _preproc(input);
+
+      stream.on('data', function (data) {
+        data.should.equal(expected);
+        done();
+      });
+
+      stream.write(input);
+    })
   });
 
   it('should support input containing a single markdown image (relative to the current folder) reference', function(done) {

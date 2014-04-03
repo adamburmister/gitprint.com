@@ -31,6 +31,10 @@ var DEFAULT_DISPOSITION = DISPOSITION.INLINE;
 
 /* ---- METHODS --- */
 
+var mdPreProcessors = imgPreprocessor.build({
+    baseUrl: 'foo'
+  });
+
 /**
  * Convert a github raw URL to PDF and send it to the client
  * @param {object} request
@@ -123,14 +127,16 @@ exports.convertGistMarkdownToPdf = function(req, res) {
 exports.convertWikiMarkdownToPdf = function(req, res){
   var githubPath = req.path;
   var url = urlHelper.translate(githubPath);
-  var preProc = wikiMarkdownPreprocessor.build({
-    baseUrl: 'foo'
-  });
+  // var preProc = [mdPreProcessors, 
+  //   wikiMarkdownPreprocessor.build({
+  //     baseUrl: 'foo'
+  //   })
+  // ];
 
   if(Object.keys(req.query).indexOf('download') !== -1) {
-    convert(req, res, url, DISPOSITION.ATTACHMENT, preProc);
+    convert(req, res, url, DISPOSITION.ATTACHMENT, mdPreProcessors);
   } else if(Object.keys(req.query).indexOf('inline') !== -1) {
-    convert(req, res, url, DISPOSITION.INLINE, preProc);
+    convert(req, res, url, DISPOSITION.INLINE, mdPreProcessors);
   } else {
     res.render('printView', { pageTitle: githubPath });
   }
@@ -142,9 +148,9 @@ exports.convertMarkdownToPdf = function(req, res){
   var url = urlHelper.translate(githubPath);
 
   if(Object.keys(req.query).indexOf('download') !== -1) {
-    convert(req, res, url, DISPOSITION.ATTACHMENT);
+    convert(req, res, url, DISPOSITION.ATTACHMENT, mdPreProcessors);
   } else if(Object.keys(req.query).indexOf('inline') !== -1) {
-    convert(req, res, url, DISPOSITION.INLINE);
+    convert(req, res, url, DISPOSITION.INLINE, mdPreProcessors);
   } else {
     res.render('printView', { pageTitle: githubPath });
   }
@@ -160,7 +166,7 @@ exports.convertRopoIndexMarkdownToPdf = function(req, res){
       disposition = DISPOSITION.ATTACHMENT;
     }
     Q.when(urlHelper.translate(githubPath)).then(function(url) {
-      convert(req, res, url, disposition);
+      convert(req, res, url, disposition, mdPreProcessors);
     });
   } else {
     res.render('printView', { pageTitle: githubPath });
