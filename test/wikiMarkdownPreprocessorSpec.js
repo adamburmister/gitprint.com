@@ -19,5 +19,5 @@ describe('Wiki markup support', function(){
   		baseUrl: 'foo',
   	};
   	preproc = wikiMarkdownPreprocessor.build(options);
-  })
+  });
 });
