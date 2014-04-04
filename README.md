@@ -12,3 +12,5 @@ Suggestions?
 ------------
 
 Add a GitHub issue!
+
+[![Build Status](https://travis-ci.org/adamburmister/gitprint.com.png?branch=master)](https://travis-ci.org/adamburmister/gitprint.com)
