@@ -1,6 +1,6 @@
 {
   "name": "gitprint.com",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Render GitHub markdown files for easy printing",
   "main": "index.js",
   "scripts": {
