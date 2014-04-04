@@ -32,7 +32,7 @@ var DEFAULT_DISPOSITION = DISPOSITION.INLINE;
 /* ---- METHODS --- */
 
 var mdPreProcessors = imgPreprocessor.build({
-    baseUrl: 'foo'
+    baseUrl: 'https://raw.githubusercontent.com/adamburmister/gitprint.com/feature/relative-image-urls/test/examples/'
   });
 
 /**
