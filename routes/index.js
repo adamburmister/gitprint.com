@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var fs = require('fs');
+var path = require('path');
 var markdownpdf = require('markdown-pdf')
 var request = require('request');
 var crypto = require('crypto');
@@ -109,8 +110,10 @@ function convert(req, res, url, disposition, preProcessMd, preProcessHtml) {
  * @return the base URL for relative paths used within a Markdown file
  */
 function _getBaseUrl(url) {
-  var baseUrl = require('url').parse(url);
-  
+  var parsedUrl = require('url').parse(url);
+  var baseUrlDir = path.dirname(parsedUrl.path);
+  var baseUrl = parsedUrl.protocol + '//' + parsedUrl.host + baseUrlDir;
+  console.log(url +' => ' + baseUrl);
   return baseUrl;
 }
 
