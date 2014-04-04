@@ -31,10 +31,6 @@ var DEFAULT_DISPOSITION = DISPOSITION.INLINE;
 
 /* ---- METHODS --- */
 
-var mdPreProcessors = imgPreprocessor.build({
-    baseUrl: 'https://raw.githubusercontent.com/adamburmister/gitprint.com/feature/relative-image-urls/test/examples/'
-  });
-
 /**
  * Convert a github raw URL to PDF and send it to the client
  * @param {object} request
@@ -108,6 +104,26 @@ function convert(req, res, url, disposition, preProcessMd, preProcessHtml) {
   });
 }
 
+/**
+ * @param {object} url
+ * @return the base URL for relative paths used within a Markdown file
+ */
+function _getBaseUrl(url) {
+  var baseUrl = require('url').parse(url);
+  
+  return baseUrl;
+}
+
+/**
+ * @return {function} Markdown pre-processor
+ */
+function _getMarkdownPreProcessors(url) {
+  var opts = { baseUrl: _getBaseUrl(url) };
+  var pproc = imgPreprocessor.build(opts);
+  // TODO: Figure out how to add on the wiki markup processor and make this a pipeline
+  return pproc;
+}
+
 exports.convertGistMarkdownToPdf = function(req, res) {
   console.log("convertGistMarkdownToPdf");
 
@@ -127,16 +143,11 @@ exports.convertGistMarkdownToPdf = function(req, res) {
 exports.convertWikiMarkdownToPdf = function(req, res){
   var githubPath = req.path;
   var url = urlHelper.translate(githubPath);
-  // var preProc = [mdPreProcessors, 
-  //   wikiMarkdownPreprocessor.build({
-  //     baseUrl: 'foo'
-  //   })
-  // ];
 
   if(Object.keys(req.query).indexOf('download') !== -1) {
-    convert(req, res, url, DISPOSITION.ATTACHMENT, mdPreProcessors);
+    convert(req, res, url, DISPOSITION.ATTACHMENT, _getMarkdownPreProcessors(url));
   } else if(Object.keys(req.query).indexOf('inline') !== -1) {
-    convert(req, res, url, DISPOSITION.INLINE, mdPreProcessors);
+    convert(req, res, url, DISPOSITION.INLINE, _getMarkdownPreProcessors(url));
   } else {
     res.render('printView', { pageTitle: githubPath });
   }
@@ -148,9 +159,9 @@ exports.convertMarkdownToPdf = function(req, res){
   var url = urlHelper.translate(githubPath);
 
   if(Object.keys(req.query).indexOf('download') !== -1) {
-    convert(req, res, url, DISPOSITION.ATTACHMENT, mdPreProcessors);
+    convert(req, res, url, DISPOSITION.ATTACHMENT, _getMarkdownPreProcessors(url));
   } else if(Object.keys(req.query).indexOf('inline') !== -1) {
-    convert(req, res, url, DISPOSITION.INLINE, mdPreProcessors);
+    convert(req, res, url, DISPOSITION.INLINE, _getMarkdownPreProcessors(url));
   } else {
     res.render('printView', { pageTitle: githubPath });
   }
@@ -166,7 +177,7 @@ exports.convertRopoIndexMarkdownToPdf = function(req, res){
       disposition = DISPOSITION.ATTACHMENT;
     }
     Q.when(urlHelper.translate(githubPath)).then(function(url) {
-      convert(req, res, url, disposition, mdPreProcessors);
+      convert(req, res, url, disposition, _getMarkdownPreProcessors(url));
     });
   } else {
     res.render('printView', { pageTitle: githubPath });
