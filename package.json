@@ -1,11 +1,12 @@
 {
   "name": "gitprint.com",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Render GitHub markdown files for easy printing",
   "main": "index.js",
   "scripts": {
     "start": "grunt && node ./bin/www",
-    "test": "mocha"
+    "test": "mocha test",
+    "coverage": "istanbul cover _mocha test --recursive -- -u exports -R spec && open coverage/lcov-report/index.html"
   },
   "repository": {
     "type": "git",
@@ -31,7 +32,11 @@
     "chai": "~1.9.0",
     "chai-as-promised": "~4.1.1",
     "grunt-contrib-clean": "^0.5.0",
+<<<<<<< HEAD
     "markdown-pdf": "git+ssh://git@github.com/adamburmister/markdown-pdf.git"
+=======
+    "istanbul": "^0.2.7"
+>>>>>>> master
   },
   "dependencies": {
     "q": "~1.0.1",
