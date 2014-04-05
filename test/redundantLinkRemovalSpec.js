@@ -29,7 +29,6 @@ describe('Redundant link removal', function(){
 	  stream.write(input);
 	});
 
-
   it('removes redundant links in amongst sentences', function(done) {
 	  var input = 'This sentence contains [http://google.com/subpath](http://google.com/subpath) a URL';
 	  var expected = 'This sentence contains http://google.com/subpath a URL';

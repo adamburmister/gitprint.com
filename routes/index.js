@@ -6,10 +6,12 @@ var request = require('request');
 var crypto = require('crypto');
 var Q = require('q');
 var urlHelper = require('../lib/url_helper');
+var PreprocessorPipeline = require('../lib/preprocessorPipeline');
 
-/* Preprocessors */
-var imgPreprocessor = require('../lib/preprocessor/relToAbsImageUrl');
-var redundantLinkRemovalPreprocessor = require('../lib/preprocessor/redundantLinkRemoval');
+
+// /* Preprocessors */
+// var imgPreprocessor = require('../lib/preprocessor/relToAbsImageUrl');
+// var redundantLinkRemovalPreprocessor = require('../lib/preprocessor/redundantLinkRemoval');
 
 /* --- CONSTANTS --- */
 
@@ -118,13 +120,11 @@ function _getBaseUrl(url) {
 }
 
 /**
- * @return {function} Markdown pre-processor
+ * @return {function} Markdown pre-processor pipeline
  */
 function _getMarkdownPreProcessors(url) {
   var opts = { baseUrl: _getBaseUrl(url) };
-  var pproc = imgPreprocessor.build(opts);
-  // TODO: Figure out how to add on the wiki markup processor and make this a pipeline
-  return pproc;
+  return new PreprocessorPipeline(opts);
 }
 
 exports.convertGistMarkdownToPdf = function(req, res) {
