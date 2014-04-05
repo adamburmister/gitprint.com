@@ -5,7 +5,12 @@ var request = require('request');
 var crypto = require('crypto');
 var Q = require('q');
 var urlHelper = require('../lib/url_helper');
-var wikiMarkdownPreprocessor = require('../lib/wiki_markdown_preprocessor');
+
+/* Preprocessors */
+var imgPreprocessor = require('../lib/preprocessor/relToAbsImageUrl');
+var redundantLinkRemovalPreprocessor = require('../lib/preprocessor/redundantLinkRemoval');
+
+/* --- CONSTANTS --- */
 
 // How long to wait for the view to render
 var WAIT_FOR_RENDER_DELAY = 1500;
@@ -23,6 +28,13 @@ var DISPOSITION = {
   ATTACHMENT: 'attachment',
 }
 var DEFAULT_DISPOSITION = DISPOSITION.INLINE;
+
+/* ---- METHODS --- */
+
+var mdPreProcessors = imgPreprocessor.build({
+  baseUrl: 'https://raw.githubusercontent.com/adamburmister/gitprint.com/feature/relative-image-urls/test/examples/'
+});
+
 
 /**
  * Convert a github raw URL to PDF and send it to the client
@@ -116,9 +128,6 @@ exports.convertGistMarkdownToPdf = function(req, res) {
 exports.convertWikiMarkdownToPdf = function(req, res){
   var githubPath = req.path;
   var url = urlHelper.translate(githubPath);
-  var preProc = wikiMarkdownPreprocessor.build({
-    baseUrl: 'foo'
-  });
 
   if(Object.keys(req.query).indexOf('download') !== -1) {
     convert(req, res, url, DISPOSITION.ATTACHMENT, preProc);
