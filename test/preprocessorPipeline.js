@@ -12,6 +12,7 @@ describe('Preprocessor pipeline', function(){
   
   it('should allow for multiple processors to run in turn', function() {
     var pipeline = PreprocessorPipeline({ baseUrl: 'http://baseurl' });
+    pipeline().write('foo').should.equal('foo')
   });
 
 });

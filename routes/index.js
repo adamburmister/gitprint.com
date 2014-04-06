@@ -8,11 +8,6 @@ var Q = require('q');
 var urlHelper = require('../lib/url_helper');
 var PreprocessorPipeline = require('../lib/preprocessorPipeline');
 
-
-// /* Preprocessors */
-// var imgPreprocessor = require('../lib/preprocessor/relToAbsImageUrl');
-// var redundantLinkRemovalPreprocessor = require('../lib/preprocessor/redundantLinkRemoval');
-
 /* --- CONSTANTS --- */
 
 // How long to wait for the view to render
@@ -33,7 +28,6 @@ var DISPOSITION = {
 var DEFAULT_DISPOSITION = DISPOSITION.INLINE;
 
 /* ---- METHODS --- */
-
 
 /**
  * Convert a github raw URL to PDF and send it to the client
