@@ -32,6 +32,9 @@ html
         .navbar-header
           a.navbar-brand(href="/") GitPrint <em>&ndash; Easily print GitHub markdown</em>
         ul.nav.navbar-nav.navbar-right
+          li.cachedWarning.navbar-text
+            span (This PDF is a cached copy. 
+            a(href="?skipCache=true") Re-render PDF)
           li
             a.btn.btn-default.navbar-btn(href="?download") Download
           li

@@ -24,4 +24,14 @@ body.printView {
     height: 100%;
   }
 
+  li.cachedWarning {
+    color: #666;
+    a {
+      padding: 0;
+      display: inline;
+      float: none;
+      color: #333;
+      text-decoration: underline;
+    }
+  }
 }
