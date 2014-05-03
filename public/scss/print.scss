@@ -429,3 +429,31 @@ pre {
     content: '';
   }
 }
+
+table {
+  width: 100%;
+  margin: 1rem 0 0.5rem 0;
+}
+th, td {
+  border: 1pt solid $print-gray-light;
+  padding: 0.5rem;
+}
+tr {
+  &:nth-child(2n) {
+    background-color: #f8f8f8;
+  }
+  &:last-child {
+    td, th {
+      border-bottom-width: 1.5pt;
+      border-bottom-color: $print-gray;
+    }
+  }
+}
+thead {
+  tr {
+    td, th {
+      border-bottom-width: 1pt;
+      border-bottom-color: $print-gray;
+    }
+  }
+}
