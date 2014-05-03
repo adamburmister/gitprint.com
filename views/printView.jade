@@ -31,6 +31,8 @@ html
       .container-fluid
         .navbar-header
           a.navbar-brand(href="/") GitPrint <em>&ndash; Easily print GitHub markdown</em>
+          div.pull-left.share
+            a.twitter-share-button(href="https://twitter.com/share", data-text="Easily print GitHub markdown files with GitPrint.com", data-dnt="true")
         ul.nav.navbar-nav.navbar-right
           li
             a.btn.btn-default.navbar-btn(href="?download") Download
@@ -41,3 +43,6 @@ html
           
     .documentContainer.hidden-print
       iframe#document(src='?inline', width='100%', height='100%', scrolling='no', frameborder='no')
+
+    script.
+      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
