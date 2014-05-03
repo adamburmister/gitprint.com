@@ -7,9 +7,9 @@ var crypto = require('crypto');
 var Q = require('q');
 var urlHelper = require('../lib/url_helper');
 
-/* --- PIPELINE --- */
-var wikiMarkdownPreprocessor = require('../lib/wiki_markdown_preprocessor');
-var imgPreprocessor = require('../lib/relative_image_preprocessor');
+/* Preprocessors */
+var imgPreprocessor = require('../lib/preprocessor/relToAbsImageUrl');
+var redundantLinkRemovalPreprocessor = require('../lib/preprocessor/redundantLinkRemoval');
 
 /* --- CONSTANTS --- */
 
@@ -31,6 +31,7 @@ var DISPOSITION = {
 var DEFAULT_DISPOSITION = DISPOSITION.INLINE;
 
 /* ---- METHODS --- */
+
 
 /**
  * Convert a github raw URL to PDF and send it to the client
@@ -113,7 +114,6 @@ function _getBaseUrl(url) {
   var parsedUrl = require('url').parse(url);
   var baseUrlDir = path.dirname(parsedUrl.path);
   var baseUrl = parsedUrl.protocol + '//' + parsedUrl.host + baseUrlDir;
-  console.log(url +' => ' + baseUrl);
   return baseUrl;
 }
 
