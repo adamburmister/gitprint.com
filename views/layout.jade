@@ -18,6 +18,8 @@ html
       .container-fluid
         .navbar-header
           a.navbar-brand(href="/") GitPrint <em>&ndash; Easily print GitHub markdown</em>
+          div.pull-left.share
+            a.twitter-share-button(href="https://twitter.com/share", data-text="Easily print GitHub markdown files with GitPrint.com", data-dnt="true")
         ul.nav.navbar-nav.navbar-right
           li
             a.btn.btn-default.navbar-btn(href="/jquery/jquery/") See an example
@@ -27,3 +29,6 @@ html
 
       footer.footer
         p &copy; 2014 <a href="https://twitter.com/adamburmister">@adamburmister</a> | <a href="https://github.com/adamburmister/gitprint.com/issues?state=open">Report issue or suggest feature</a>
+
+    script.
+      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
