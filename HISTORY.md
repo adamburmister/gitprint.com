@@ -1,5 +1,9 @@
 # History
 
+## v0.0.4 - 2 May 2014
+
+* Added table print styles
+
 ## v0.0.3 - 3 April 2014
 
 * Added support for Wiki printing, along with markdown preprocessor
