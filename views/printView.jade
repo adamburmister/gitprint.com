@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title GitPrint: #{pageTitle}
+    title GitPrint.com: #{pageTitle}
     meta(charset='utf-8')
     meta(description='Easily print GitHub markdown')
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
@@ -14,12 +14,19 @@ html
       ga('create', 'UA-48971811-1', 'gitprint.com');
       ga('send', 'pageview');
     script.
+      var autoPrint=#{autoPrint};
       function printFrame(id) {
         var frm = document.getElementById(id).contentWindow;
         frm.focus();// focus on contentWindow is needed on some ie versions
         frm.print();
         return false;
       }
+      if(autoPrint) {
+        window.onload = function() {
+          printFrame("document");
+        }
+      }
+
   body.printView
 
     .noDirectPrintingWarning.visible-print
@@ -37,7 +44,7 @@ html
           li
             a.btn.btn-default.navbar-btn(href="?download") Download
           li
-            a.btn.btn-primary.navbar-btn.btn-print(href="#print", onclick='printFrame("document");return false;')
+            a.btn.btn-primary.navbar-btn.btn-print(href="?print", onclick='printFrame("document");return false;')
               span.glyphicon.glyphicon-print
               span Print
           

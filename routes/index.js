@@ -139,20 +139,22 @@ exports.convertGistMarkdownToPdf = function(req, res) {
   // } else if(Object.keys(req.query).indexOf('inline') !== -1) {
   //   convert(req, res, url, DISPOSITION.INLINE);
   // } else {
-  //   res.render('printView', { pageTitle: githubPath });
+  //   res.render('printView', { pageTitle: githubPath, autoPrint: autoPrint });
   // }
 };
 
 exports.convertWikiMarkdownToPdf = function(req, res){
   var githubPath = req.path;
   var url = urlHelper.translate(githubPath);
+  var qsParamKeys = Object.keys(req.query);
+  var autoPrint = (qsParamKeys.indexOf('print') !== -1);
 
-  if(Object.keys(req.query).indexOf('download') !== -1) {
+  if(psParamKeys.indexOf('download') !== -1) {
     convert(req, res, url, DISPOSITION.ATTACHMENT, _getMarkdownPreProcessors(url));
-  } else if(Object.keys(req.query).indexOf('inline') !== -1) {
+  } else if(qsParamKeys.indexOf('inline') !== -1) {
     convert(req, res, url, DISPOSITION.INLINE, _getMarkdownPreProcessors(url));
   } else {
-    res.render('printView', { pageTitle: githubPath });
+    res.render('printView', { pageTitle: githubPath, autoPrint: autoPrint });
   }
 };
 
@@ -160,30 +162,34 @@ exports.convertWikiMarkdownToPdf = function(req, res){
 exports.convertMarkdownToPdf = function(req, res){
   var githubPath = req.path;
   var url = urlHelper.translate(githubPath);
+  var qsParamKeys = Object.keys(req.query);
+  var autoPrint = (qsParamKeys.indexOf('print') !== -1);
 
-  if(Object.keys(req.query).indexOf('download') !== -1) {
+  if(qsParamKeys.indexOf('download') !== -1) {
     convert(req, res, url, DISPOSITION.ATTACHMENT, _getMarkdownPreProcessors(url));
-  } else if(Object.keys(req.query).indexOf('inline') !== -1) {
+  } else if(qsParamKeys.indexOf('inline') !== -1) {
     convert(req, res, url, DISPOSITION.INLINE, _getMarkdownPreProcessors(url));
   } else {
-    res.render('printView', { pageTitle: githubPath });
+    res.render('printView', { pageTitle: githubPath, autoPrint: autoPrint });
   }
 };
 
-exports.convertRopoIndexMarkdownToPdf = function(req, res){
+exports.convertReadmeMarkdownToPdf = function(req, res){
   var githubPath = req.path;
   var url;
   var disposition = DISPOSITION.INLINE;
+  var qsParamKeys = Object.keys(req.query);
+  var autoPrint = (qsParamKeys.indexOf('print') !== -1);
 
-  if(Object.keys(req.query).indexOf('download') !== -1 || Object.keys(req.query).indexOf('inline') !== -1) {
-    if(Object.keys(req.query).indexOf('download') !== -1) {
+  if(qsParamKeys.indexOf('download') !== -1 || qsParamKeys.indexOf('inline') !== -1) {
+    if(qsParamKeys.indexOf('download') !== -1) {
       disposition = DISPOSITION.ATTACHMENT;
     }
     Q.when(urlHelper.translate(githubPath)).then(function(url) {
       convert(req, res, url, disposition, _getMarkdownPreProcessors(url));
     });
   } else {
-    res.render('printView', { pageTitle: githubPath });
+    res.render('printView', { pageTitle: githubPath, autoPrint: autoPrint });
   }
 };
 

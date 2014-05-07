@@ -36,7 +36,7 @@ app.get(urlHelper.REGEX.WikiFile, routes.convertWikiMarkdownToPdf);
 app.get(urlHelper.REGEX.RepoMarkdownFile, routes.convertMarkdownToPdf);
 
 // repo readme
-app.get(urlHelper.REGEX.RepoIndex, routes.convertRopoIndexMarkdownToPdf);
+app.get(urlHelper.REGEX.RepoIndex, routes.convertReadmeMarkdownToPdf);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
