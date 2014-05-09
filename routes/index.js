@@ -149,7 +149,7 @@ exports.convertWikiMarkdownToPdf = function(req, res){
   var qsParamKeys = Object.keys(req.query);
   var autoPrint = (qsParamKeys.indexOf('print') !== -1);
 
-  if(psParamKeys.indexOf('download') !== -1) {
+  if(qsParamKeys.indexOf('download') !== -1) {
     convert(req, res, url, DISPOSITION.ATTACHMENT, _getMarkdownPreProcessors(url));
   } else if(qsParamKeys.indexOf('inline') !== -1) {
     convert(req, res, url, DISPOSITION.INLINE, _getMarkdownPreProcessors(url));
