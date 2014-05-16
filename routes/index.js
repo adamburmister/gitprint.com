@@ -128,19 +128,18 @@ function _getMarkdownPreProcessors(url) {
 }
 
 exports.convertGistMarkdownToPdf = function(req, res) {
-  console.log("convertGistMarkdownToPdf");
+    var githubPath = req.path,
+        url = urlHelper.translate(githubPath),
+        qsParamKeys = Object.keys(req.query),
+        autoPrint = (qsParamKeys.indexOf('print') !== -1);
 
-  // // https://gist.githubusercontent.com
-  // var githubPath = '';
-  // 'https://gist.githubusercontent.com/' + githubPath;
-  
-  // if(Object.keys(req.query).indexOf('download') !== -1) {
-  //   convert(req, res, url, DISPOSITION.ATTACHMENT);
-  // } else if(Object.keys(req.query).indexOf('inline') !== -1) {
-  //   convert(req, res, url, DISPOSITION.INLINE);
-  // } else {
-  //   res.render('printView', { pageTitle: githubPath, autoPrint: autoPrint });
-  // }
+  if(Object.keys(req.query).indexOf('download') !== -1) {
+    convert(req, res, url, DISPOSITION.ATTACHMENT);
+  } else if(Object.keys(req.query).indexOf('inline') !== -1) {
+    convert(req, res, url, DISPOSITION.INLINE);
+  } else {
+    res.render('printView', { pageTitle: githubPath, autoPrint: autoPrint });
+  }
 };
 
 exports.convertWikiMarkdownToPdf = function(req, res){
