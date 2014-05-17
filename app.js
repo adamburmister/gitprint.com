@@ -27,7 +27,7 @@ app.use(app.router);
 app.get('/', routes.index);
 
 // Gists
-app.get(urlHelper.REGEX.Gist, routes.convertGistMarkdownToPdf);
+app.get(urlHelper.REGEX.Gist, routes.render);
 
 // Wiki
 app.get(urlHelper.REGEX.WikiFile, routes.render);
