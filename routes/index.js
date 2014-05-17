@@ -148,21 +148,11 @@ function _getMarkdownPreProcessors(url) {
 }
 
 exports.convertGistMarkdownToPdf = function(req, res) {
+  // TODO: Merge code
   render(req, res);
 };
 
-exports.convertWikiMarkdownToPdf = function(req, res){
-  render(req, res);
-};
-
-
-exports.convertMarkdownToPdf = function(req, res){
-  render(req, res);
-};
-
-exports.convertReadmeMarkdownToPdf = function(req, res){
-  render(req, res);
-};
+exports.render = render;
 
 /* GET home page. */
 exports.index = function(req, res){
