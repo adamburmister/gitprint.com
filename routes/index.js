@@ -147,11 +147,8 @@ function _getMarkdownPreProcessors(url) {
   return pproc;
 }
 
-exports.convertGistMarkdownToPdf = function(req, res) {
-  // TODO: Merge code
-  render(req, res);
-};
 
+/* Translate and render a Github URL as PDF */
 exports.render = render;
 
 /* GET home page. */
