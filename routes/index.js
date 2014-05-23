@@ -32,6 +32,26 @@ var DEFAULT_DISPOSITION = DISPOSITION.INLINE;
 
 /* ---- METHODS --- */
 
+/**
+ * Render a response, tailored to the request.
+ * Can deliver inline, downloadable, and auto-printable views.
+ */
+function render(req, res) {
+  var githubPath = req.path;
+  var qsParamKeys = Object.keys(req.query);
+  var isAutoPrint = _.contains(qsParamKeys, 'print');
+  var isDownload = _.contains(qsParamKeys, 'download');
+  var isInline = _.contains(qsParamKeys, 'inline');
+  var disposition = isDownload ? DISPOSITION.ATTACHMENT : DISPOSITION.INLINE
+
+  if(isDownload || isInline) {
+    Q.when(urlHelper.translate(githubPath)).then(function(url) {
+      convert(req, res, url, disposition, _getMarkdownPreProcessors(url));
+    });
+  } else {
+    res.render('printView', { pageTitle: githubPath, autoPrint: isAutoPrint });
+  }
+}
 
 /**
  * Convert a github raw URL to PDF and send it to the client
@@ -127,71 +147,9 @@ function _getMarkdownPreProcessors(url) {
   return pproc;
 }
 
-exports.convertGistMarkdownToPdf = function(req, res) {
-  console.log("convertGistMarkdownToPdf");
 
-  // // https://gist.githubusercontent.com
-  // var githubPath = '';
-  // 'https://gist.githubusercontent.com/' + githubPath;
-  
-  // if(Object.keys(req.query).indexOf('download') !== -1) {
-  //   convert(req, res, url, DISPOSITION.ATTACHMENT);
-  // } else if(Object.keys(req.query).indexOf('inline') !== -1) {
-  //   convert(req, res, url, DISPOSITION.INLINE);
-  // } else {
-  //   res.render('printView', { pageTitle: githubPath, autoPrint: autoPrint });
-  // }
-};
-
-exports.convertWikiMarkdownToPdf = function(req, res){
-  var githubPath = req.path;
-  var url = urlHelper.translate(githubPath);
-  var qsParamKeys = Object.keys(req.query);
-  var autoPrint = (qsParamKeys.indexOf('print') !== -1);
-
-  if(qsParamKeys.indexOf('download') !== -1) {
-    convert(req, res, url, DISPOSITION.ATTACHMENT, _getMarkdownPreProcessors(url));
-  } else if(qsParamKeys.indexOf('inline') !== -1) {
-    convert(req, res, url, DISPOSITION.INLINE, _getMarkdownPreProcessors(url));
-  } else {
-    res.render('printView', { pageTitle: githubPath, autoPrint: autoPrint });
-  }
-};
-
-
-exports.convertMarkdownToPdf = function(req, res){
-  var githubPath = req.path;
-  var url = urlHelper.translate(githubPath);
-  var qsParamKeys = Object.keys(req.query);
-  var autoPrint = (qsParamKeys.indexOf('print') !== -1);
-
-  if(qsParamKeys.indexOf('download') !== -1) {
-    convert(req, res, url, DISPOSITION.ATTACHMENT, _getMarkdownPreProcessors(url));
-  } else if(qsParamKeys.indexOf('inline') !== -1) {
-    convert(req, res, url, DISPOSITION.INLINE, _getMarkdownPreProcessors(url));
-  } else {
-    res.render('printView', { pageTitle: githubPath, autoPrint: autoPrint });
-  }
-};
-
-exports.convertReadmeMarkdownToPdf = function(req, res){
-  var githubPath = req.path;
-  var url;
-  var disposition = DISPOSITION.INLINE;
-  var qsParamKeys = Object.keys(req.query);
-  var autoPrint = (qsParamKeys.indexOf('print') !== -1);
-
-  if(qsParamKeys.indexOf('download') !== -1 || qsParamKeys.indexOf('inline') !== -1) {
-    if(qsParamKeys.indexOf('download') !== -1) {
-      disposition = DISPOSITION.ATTACHMENT;
-    }
-    Q.when(urlHelper.translate(githubPath)).then(function(url) {
-      convert(req, res, url, disposition, _getMarkdownPreProcessors(url));
-    });
-  } else {
-    res.render('printView', { pageTitle: githubPath, autoPrint: autoPrint });
-  }
-};
+/* Translate and render a Github URL as PDF */
+exports.render = render;
 
 /* GET home page. */
 exports.index = function(req, res){

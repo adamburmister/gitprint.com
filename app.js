@@ -27,16 +27,16 @@ app.use(app.router);
 app.get('/', routes.index);
 
 // Gists
-app.get(urlHelper.REGEX.Gist, routes.convertGistMarkdownToPdf);
+app.get(urlHelper.REGEX.Gist, routes.render);
 
 // Wiki
-app.get(urlHelper.REGEX.WikiFile, routes.convertWikiMarkdownToPdf);
+app.get(urlHelper.REGEX.WikiFile, routes.render);
 
 // blob markdown
-app.get(urlHelper.REGEX.RepoMarkdownFile, routes.convertMarkdownToPdf);
+app.get(urlHelper.REGEX.RepoMarkdownFile, routes.render);
 
 // repo readme
-app.get(urlHelper.REGEX.RepoIndex, routes.convertReadmeMarkdownToPdf);
+app.get(urlHelper.REGEX.RepoIndex, routes.render);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
