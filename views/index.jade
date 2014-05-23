@@ -16,9 +16,14 @@ block content
         span Try an example (https://git<b>print</b>.com/jquery/jquery/blob/master/README.md)
 
   div.extension.well
-    h3.h4 Get the Chrome Browser Extension
+    h3.h4 Browser Extension and Bookmarklet
     p Print Markdown from GitHub like you should have always been able to!
     p The GitPrint.com Chrome browser extension automatically inserts Markdown Print and Download buttons into the GitHub user interface. It's free, unobtrusive and quick to install.
     p
       a.btn.btn-default(href="https://chrome.google.com/webstore/detail/print-github-markdown-git/fhnfikabkgjdcbgncedbgiapobklkahb")
-        span Get the Chrome browser extension from the Google Chrome Webstore
+        span Get the Chrome browser extension
+    hr
+    h5 Bookmarklet
+    p. 
+      If you're using a browser that supports it, you should be able to click and drag the bookmarklet below to your bookmark's or favorite's bar.
+    a.btn.btn-default(href="javascript:void((function(){if(document.location.hostname.indexOf('github.com')!==-1){window.open(document.URL.replace('github.com','gitprint.com'),'_blank');}})());") <span class="glyphicon glyphicon-move"></span> GitPrint this!
