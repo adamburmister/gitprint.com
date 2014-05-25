@@ -19,6 +19,7 @@ var MAX_FILENAME_LEN = 60;
 
 var MARKDOWN_OPTIONS = {
   cssPath: __dirname + '/../public/css/print.css',
+  highlightCssPath: __dirname + '/../public/css/highlight.css',
   paperBorder: '1cm',
   renderDelay: WAIT_FOR_RENDER_DELAY,
   runningsPath: __dirname + '/../lib/runnings.js',
@@ -106,12 +107,15 @@ function convert(req, res, url, disposition, preProcessMd, preProcessHtml) {
               }
 
               markdownpdf(options).from.string(body).to(outputPath, function (data) {
-                var stream = fs.createReadStream(outputPath);                
-                stream.pipe(res);
+                _compressAndStreamFile(res, outputPath);
               });
             } else {
               res.contentType('text/html');
-              res.send(500, 'Something went wrong! Couldn\'t process ' + url);
+              res.status(500);
+              res.render('printError', {
+                message: "Something went wrong!",
+                error: "Oops, there was a problem rendering the file " + url + " to PDF for printing. Check the URL is correct, and add an issue on Github for us if it is."
+              });
             }
           });
 
@@ -120,9 +124,22 @@ function convert(req, res, url, disposition, preProcessMd, preProcessHtml) {
 
     } else {
       // The HEAD failed
-      res.send(500, 'Something went wrong! Couldn\'t process ' + url); 
+      res.contentType('text/html');
+      res.status(500);
+      res.render('printError', {
+        message: "Something went wrong!",
+        error: "Oops, there was a problem connecting to Github to print this page. Check the URL and try again soon."
+      });
     }
 
+  });
+}
+
+function _compressAndStreamFile(res, path) {
+  var exec = require('child_process').exec;
+  var cmd = ['../bin/shrink-pdf.sh', path, path].join(' ');
+  exec(cmd, function (error, stdout, stderr) {
+    fs.createReadStream(path).pipe(res); // Stream the output
   });
 }
 

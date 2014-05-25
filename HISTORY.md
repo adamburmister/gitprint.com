@@ -1,5 +1,12 @@
 # History
 
+## v0.0.5 - 25 May 2014
+
+* Pygments code highlighting support
+* Compress PDF file output
+* Improved Github URL translation support for raw.githubusercontent.com URLs
+* Refactor conversion methods into single method
+
 ## v0.0.4 - 2 May 2014
 
 * Added table print styles
