@@ -110,7 +110,11 @@ function convert(req, res, url, disposition, preProcessMd, preProcessHtml) {
               });
             } else {
               res.contentType('text/html');
-              res.send(500, 'Something went wrong! Couldn\'t process ' + url);
+              res.status(500);
+              res.render('printError', {
+                message: "Something went wrong!",
+                error: "Oops, there was a problem rendering the file " + url + " to PDF for printing. Check the URL is correct, and add an issue on Github for us if it is."
+              });
             }
           });
 
@@ -119,7 +123,12 @@ function convert(req, res, url, disposition, preProcessMd, preProcessHtml) {
 
     } else {
       // The HEAD failed
-      res.send(500, 'Something went wrong! Couldn\'t process ' + url); 
+      res.contentType('text/html');
+      res.status(500);
+      res.render('printError', {
+        message: "Something went wrong!",
+        error: "Oops, there was a problem connecting to Github to print this page. Check the URL and try again soon."
+      });
     }
 
   });

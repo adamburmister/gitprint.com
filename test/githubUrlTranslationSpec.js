@@ -94,33 +94,33 @@ describe('UrlHelper', function(){
 
   describe('translate', function () {
     describe('repo index', function () {
-      it('should translate http://gitprint.com/adamburmister/gitprint.com', function(done) {
-        var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com";
-        var expected = "https://raw.github.com/adamburmister/gitprint.com/master/README.md";
+      it('should translate https://gitprint.com/adamburmister/gitprint.com', function(done) {
+        var gitprintUrl = "https://gitprint.com/adamburmister/gitprint.com";
+        var expected = "https://raw.githubusercontent.com/adamburmister/gitprint.com/master/README.md";
         Q.all([
           urlHelper.translate(gitprintUrl).should.eventually.equal(expected)
         ]).should.notify(done)
       });
 
-      it('should translate http://gitprint.com/adamburmister/gitprint.com/', function(done){
-        var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/";
-        var expected = "https://raw.github.com/adamburmister/gitprint.com/master/README.md";
+      it('should translate https://gitprint.com/adamburmister/gitprint.com/', function(done){
+        var gitprintUrl = "https://gitprint.com/adamburmister/gitprint.com/";
+        var expected = "https://raw.githubusercontent.com/adamburmister/gitprint.com/master/README.md";
         Q.all([
           urlHelper.translate(gitprintUrl).should.eventually.equal(expected)
         ]).should.notify(done)
       });
 
-      it('should translate http://gitprint.com/adamburmister/gitprint.com/master/', function(done){
-        var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/master/";
-        var expected = "https://raw.github.com/adamburmister/gitprint.com/master/README.md";
+      it('should translate https://gitprint.com/adamburmister/gitprint.com/master/', function(done){
+        var gitprintUrl = "https://gitprint.com/adamburmister/gitprint.com/master/";
+        var expected = "https://raw.githubusercontent.com/adamburmister/gitprint.com/master/README.md";
         Q.all([
           urlHelper.translate(gitprintUrl).should.eventually.equal(expected)
         ]).should.notify(done)
       });
 
-      it('should translate http://gitprint.com/adamburmister/gitprint.com/blob/master/', function(done){
-        var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/blob/master/";
-        var expected = "https://raw.github.com/adamburmister/gitprint.com/master/README.md";
+      it('should translate https://gitprint.com/adamburmister/gitprint.com/blob/master/', function(done){
+        var gitprintUrl = "https://gitprint.com/adamburmister/gitprint.com/blob/master/";
+        var expected = "https://raw.githubusercontent.com/adamburmister/gitprint.com/master/README.md";
         Q.all([
           urlHelper.translate(gitprintUrl).should.eventually.equal(expected)
         ]).should.notify(done)
@@ -128,35 +128,49 @@ describe('UrlHelper', function(){
 
       it('should translate https://gitprint.com/adamburmister/gitprint.com/tree/master/examples', function(done){
         var gitprintUrl = "https://gitprint.com/adamburmister/gitprint.com/tree/master/examples";
-        var expected = "https://raw.github.com/adamburmister/gitprint.com/tree/master/examples/README.md";
+        var expected = "https://raw.githubusercontent.com/adamburmister/gitprint.com/master/examples/README.md";
         Q.all([
           urlHelper.translate(gitprintUrl).should.eventually.equal(expected)
         ]).should.notify(done)
       });
+
+      it('should translate https://gitprint.com/adamburmister/gitprint.com/tree/develop/', function(done){
+        var gitprintUrl = "https://gitprint.com/adamburmister/gitprint.com/tree/develop";
+        var expected = "https://raw.githubusercontent.com/adamburmister/gitprint.com/develop/README.md";
+        Q.all([
+          urlHelper.translate(gitprintUrl).should.eventually.equal(expected)
+        ]).should.notify(done)
+      });
+
+      it('should translate https://gitprint.com/adamburmister/gitprint.com/blob/master/test/examples/README.md', function(){
+        var gitprintUrl =              "https://gitprint.com/adamburmister/gitprint.com/blob/master/test/examples/README.md";
+        var expected =    "https://raw.githubusercontent.com/adamburmister/gitprint.com/master/test/examples/README.md";
+        urlHelper.translate(gitprintUrl).should.equal(expected);
+      });
     });
 
     describe('repo file', function () {
-      it('should translate http://gitprint.com/adamburmister/gitprint.com/master/README.md', function(){
-        var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/master/README.md";
-        var expected = "https://raw.github.com/adamburmister/gitprint.com/master/README.md";
+      it('should translate https://gitprint.com/adamburmister/gitprint.com/master/README.md', function(){
+        var gitprintUrl = "https://gitprint.com/adamburmister/gitprint.com/master/README.md";
+        var expected = "https://raw.githubusercontent.com/adamburmister/gitprint.com/master/README.md";
         urlHelper.translate(gitprintUrl).should.equal(expected);
       });
 
-      it('should translate http://gitprint.com/adamburmister/gitprint.com/blob/master/README.md', function(){
-        var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/blob/master/README.md";
-        var expected = "https://raw.github.com/adamburmister/gitprint.com/master/README.md";
+      it('should translate https://gitprint.com/adamburmister/gitprint.com/blob/master/README.md', function(){
+        var gitprintUrl = "https://gitprint.com/adamburmister/gitprint.com/blob/master/README.md";
+        var expected = "https://raw.githubusercontent.com/adamburmister/gitprint.com/master/README.md";
         urlHelper.translate(gitprintUrl).should.equal(expected);
       });
 
-      it('should translate http://gitprint.com/adamburmister/gitprint.com/blob/feature/github-api/README.md', function(){
-        var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/blob/feature/github-api/README.md";
-        var expected = "https://raw.github.com/adamburmister/gitprint.com/feature/github-api/README.md";
+      it('should translate https://gitprint.com/adamburmister/gitprint.com/blob/feature/github-api/README.md', function(){
+        var gitprintUrl = "https://gitprint.com/adamburmister/gitprint.com/blob/feature/github-api/README.md";
+        var expected = "https://raw.githubusercontent.com/adamburmister/gitprint.com/feature/github-api/README.md";
         urlHelper.translate(gitprintUrl).should.equal(expected);
       });
 
-      it('should translate http://gitprint.com/adamburmister/gitprint.com/master/test/examples/README.md', function(){
-        var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/master/test/examples/README.md";
-        var expected = "https://raw.github.com/adamburmister/gitprint.com/master/test/examples/README.md";
+      it('should translate https://gitprint.com/adamburmister/gitprint.com/master/test/examples/README.md', function(){
+        var gitprintUrl = "https://gitprint.com/adamburmister/gitprint.com/master/test/examples/README.md";
+        var expected = "https://raw.githubusercontent.com/adamburmister/gitprint.com/master/test/examples/README.md";
         urlHelper.translate(gitprintUrl).should.equal(expected);
       });
 
@@ -166,20 +180,20 @@ describe('UrlHelper', function(){
       describe('indexes', function() {
         it('should translate https://gitprint.com/adamburmister/gitprint.com/wiki', function () {
           var gitprintUrl = 'https://gitprint.com/adamburmister/gitprint.com/wiki';
-          var expected = 'https://raw.github.com/wiki/adamburmister/gitprint.com/home.md'
+          var expected = 'https://raw.githubusercontent.com/wiki/adamburmister/gitprint.com/home.md'
           urlHelper.translate(gitprintUrl).should.equal(expected);
         });
 
         it('should translate https://gitprint.com/adamburmister/gitprint.com/wiki/', function () {
           var gitprintUrl = 'https://gitprint.com/adamburmister/gitprint.com/wiki/';
-          var expected = 'https://raw.github.com/wiki/adamburmister/gitprint.com/home.md'
+          var expected = 'https://raw.githubusercontent.com/wiki/adamburmister/gitprint.com/home.md'
           urlHelper.translate(gitprintUrl).should.equal(expected);
         });
       });
 
       it('should translate https://gitprint.com/adamburmister/gitprint.com/wiki/Contribute', function () {
         var gitprintUrl = 'https://gitprint.com/adamburmister/gitprint.com/wiki/Contribute';
-        var expected = 'https://raw.github.com/wiki/adamburmister/gitprint.com/Contribute.md'
+        var expected = 'https://raw.githubusercontent.com/wiki/adamburmister/gitprint.com/Contribute.md'
         urlHelper.translate(gitprintUrl).should.equal(expected);
       });
     });
