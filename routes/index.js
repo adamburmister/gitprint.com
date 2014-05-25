@@ -106,8 +106,7 @@ function convert(req, res, url, disposition, preProcessMd, preProcessHtml) {
               }
 
               markdownpdf(options).from.string(body).to(outputPath, function (data) {
-                var stream = fs.createReadStream(outputPath);                
-                stream.pipe(res);
+                _compressAndStreamFile(res, outputPath);
               });
             } else {
               res.contentType('text/html');
@@ -123,6 +122,14 @@ function convert(req, res, url, disposition, preProcessMd, preProcessHtml) {
       res.send(500, 'Something went wrong! Couldn\'t process ' + url); 
     }
 
+  });
+}
+
+function _compressAndStreamFile(res, path) {
+  var exec = require('child_process').exec;
+  var cmd = ['../bin/shrink-pdf.sh', path, path].join(' ');
+  exec(cmd, function (error, stdout, stderr) {
+    fs.createReadStream(path).pipe(res); // Stream the output
   });
 }
 
