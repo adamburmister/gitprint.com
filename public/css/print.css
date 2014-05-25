@@ -189,7 +189,7 @@ i, cite, em, var, address {
 }
 
 pre, tt, code, kbd, samp {
-  font-family: monospace;
+  font-family: "Inconsolata", monospace;
 }
 
 pre {
@@ -371,42 +371,6 @@ figcaption {
 img {
   clear: both;
   display: block;
-}
-
-pre {
-  position: relative;
-  border: none;
-  border-left: 1pt solid #cccccc;
-  padding: 0.5rem 0 0.5rem 1rem;
-  font-size: 0.8em;
-  font-family: "Inconsolata", "Consolas", monospace;
-}
-pre:after {
-  position: absolute;
-  font-style: normal;
-  font-weight: 600;
-  font-variant: normal;
-  font-size: 0.8rem;
-  text-transform: none;
-  text-align: center;
-  margin-left: -1.5rem;
-  margin-top: 0.6rem;
-  top: 0;
-  width: 0.8rem;
-  line-height: 1;
-  color: #333333;
-  font-family: 'icomoon';
-  font-weight: normal;
-  font-style: normal;
-  content: "\e601";
-}
-pre:before {
-  position: absolute;
-  top: 0;
-  left: -0.2rem;
-  width: 3pt;
-  border-top: 2rem solid #fff;
-  content: '';
 }
 
 table {
