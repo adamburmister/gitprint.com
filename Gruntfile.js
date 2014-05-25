@@ -24,6 +24,7 @@ module.exports = function(grunt) {
         },
         files: {
           'public/css/print.css': 'public/scss/print.scss',
+          'public/css/highlight.css': 'public/scss/highlight.scss'
         }
       }
     },

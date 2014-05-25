@@ -19,6 +19,7 @@ var MAX_FILENAME_LEN = 60;
 
 var MARKDOWN_OPTIONS = {
   cssPath: __dirname + '/../public/css/print.css',
+  highlightCssPath: __dirname + '/../public/css/highlight.css',
   paperBorder: '1cm',
   renderDelay: WAIT_FOR_RENDER_DELAY,
   runningsPath: __dirname + '/../lib/runnings.js',
