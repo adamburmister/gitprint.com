@@ -102,6 +102,7 @@ input, select {
 
 li {
   display: list-item;
+  margin: 0.5em 0;
 }
 
 head {
@@ -356,7 +357,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 {
   border-bottom: 2pt solid $print-gray-light;
-  padding-bottom: 0.5em;
+  padding-bottom: 0.25em;
   margin-top: 1em;
   margin-bottom: 1em;
   a:link:after {
