@@ -333,17 +333,17 @@ a {
   &:link, &:visited {
     text-decoration: none;
   }
-  &:link:after {
+  &:link:not([href^="#"]):after {
     color: $print-gray;
     font-family: $print-font-family-heading;
     font-size: 0.8em;
     content: " (" attr(href) ") ";
 
-    &:contains('http://'), 
-    &:contains('https://') {
-      display: none;
-      content: '';
-    }
+    // &:contains('http://'), 
+    // &:contains('https://') {
+    //   display: none;
+    //   content: '';
+    // }
   }
 }
 
@@ -355,7 +355,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  border-bottom: 4pt solid $print-gray-light;
+  border-bottom: 2pt solid $print-gray-light;
   padding-bottom: 0.5em;
   margin-top: 1em;
   margin-bottom: 1em;
@@ -391,8 +391,8 @@ figcaption {
 }
 
 img {
-  clear: both;
-  display: block;
+  // clear: both;
+  // display: block;
 }
 
 table {

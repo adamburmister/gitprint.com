@@ -121,6 +121,17 @@ describe('UrlHelper', function(){
         });
       });
 
+
+      it('should translate http://gitprint.com/dspinellis/unix-history-repo', function(done) {
+        var gitprintUrl = "http://gitprint.com/dspinellis/unix-history-repo";
+        var expected = "https://raw.githubusercontent.com/dspinellis/unix-history-repo/master/README.md";
+        verifyGithubUrlValid(expected, function() {
+          Q.all([
+            urlHelper.translate(gitprintUrl).should.eventually.equal(expected)
+          ]).should.notify(done)  
+        });
+      });
+
       it('should translate http://gitprint.com/adamburmister/gitprint.com/', function(done){
         var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com/";
         var expected = "https://raw.githubusercontent.com/adamburmister/gitprint.com/master/README.md";
