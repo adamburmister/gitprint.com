@@ -326,7 +326,6 @@ a:link:not([href^="#"]):after {
 h1, h2, h3, h4, h5, h6 {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
   page-break-after: avoid;
-  border-bottom: 1pt solid #cccccc;
   margin: 1.5em 0 0.5em 0;
 }
 
