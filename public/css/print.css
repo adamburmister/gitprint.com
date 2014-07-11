@@ -302,8 +302,8 @@ BDO[DIR="rtl"] {
 /* http://www.w3.org/TR/CSS2/page.html */
 body {
   color: black;
-  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
-  font-size: 10pt;
+  font-family: "MillerDisplay", "Merriweather", Georgia, "Times New Roman", Times, serif;
+  font-size: 10.5pt;
   line-height: 1.5;
   margin: 0;
   padding: 1cm;
