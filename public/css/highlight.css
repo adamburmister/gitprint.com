@@ -4,6 +4,7 @@
   border-left: 1pt solid #cccccc;
   padding: 0.5rem 0 0.5rem 1rem;
   font-size: 1em;
+  line-height: 1.4;
   font-family: "Inconsolata";
 }
 .highlight:after {
@@ -30,7 +31,7 @@
   top: 0;
   left: -0.2rem;
   width: 3pt;
-  border-top: 2rem solid #fff;
+  border-top: 2.2rem solid #fff;
   content: '';
 }
 
