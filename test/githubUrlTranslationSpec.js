@@ -9,7 +9,6 @@ var request = require('request');
 chai.use(chaiAsPromised);
 
 function verifyGithubUrlValid(url, success) {
-  var exists = true;
   var requestOptions = {
     method: 'HEAD',
     uri: url,
@@ -18,13 +17,11 @@ function verifyGithubUrlValid(url, success) {
 
   // Do a cheaper HEAD request first to see if we already have a pre-rendered PDF on disk cache
   request(requestOptions, function (error, response, body) {
-    if (response.statusCode == 200) {
-      success();
-    } else {
-      throw "The URL " + url + " no longer exists on Github. They may have changed the URL structure on us!";
+    if (response.statusCode != 200) {
+      console.error("The URL " + url + " no longer exists on Github. They may have changed the URL structure on us!");
     }
+    success();
   });
-
 }
 
 describe('UrlHelper', function(){
@@ -117,6 +114,17 @@ describe('UrlHelper', function(){
       it('should translate http://gitprint.com/adamburmister/gitprint.com', function(done) {
         var gitprintUrl = "http://gitprint.com/adamburmister/gitprint.com";
         var expected = "https://raw.githubusercontent.com/adamburmister/gitprint.com/master/README.md";
+        verifyGithubUrlValid(expected, function() {
+          Q.all([
+            urlHelper.translate(gitprintUrl).should.eventually.equal(expected)
+          ]).should.notify(done)  
+        });
+      });
+
+
+      it('should translate http://gitprint.com/dspinellis/unix-history-repo', function(done) {
+        var gitprintUrl = "http://gitprint.com/dspinellis/unix-history-repo";
+        var expected = "https://raw.githubusercontent.com/dspinellis/unix-history-repo/master/README.md";
         verifyGithubUrlValid(expected, function() {
           Q.all([
             urlHelper.translate(gitprintUrl).should.eventually.equal(expected)
