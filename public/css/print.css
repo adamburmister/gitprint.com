@@ -190,7 +190,7 @@ i, cite, em, var, address {
 }
 
 pre, tt, code, kbd, samp {
-  font-family: "Inconsolata", monospace;
+  font-family: "Inconsolata";
 }
 
 pre {
@@ -302,8 +302,8 @@ BDO[DIR="rtl"] {
 /* http://www.w3.org/TR/CSS2/page.html */
 body {
   color: black;
-  font-family: "MillerDisplay", "Merriweather", Georgia, "Times New Roman", Times, serif;
-  font-size: 10.5pt;
+  font-family: "Merriweather";
+  font-size: 10pt;
   line-height: 1.5;
   margin: 0;
   padding: 1cm;
@@ -318,13 +318,13 @@ a:link, a:visited {
 }
 a:link:not([href^="#"]):after {
   color: #666666;
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans";
   font-size: 0.8em;
   content: " (" attr(href) ") ";
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans";
   page-break-after: avoid;
   margin: 1.5em 0 0.5em 0;
 }

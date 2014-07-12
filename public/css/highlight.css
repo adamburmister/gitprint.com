@@ -3,8 +3,8 @@
   border: none;
   border-left: 1pt solid #cccccc;
   padding: 0.5rem 0 0.5rem 1rem;
-  font-size: 0.9em;
-  font-family: "Inconsolata", monospace;
+  font-size: 1em;
+  font-family: "Inconsolata";
 }
 .highlight:after {
   position: absolute;
