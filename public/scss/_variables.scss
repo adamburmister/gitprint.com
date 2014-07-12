@@ -1,8 +1,17 @@
 $printView-spinner-bg: white url(/img/spinner.gif) no-repeat 50% 50% !global;
 
+// Colours
 $print-black: #000;
 $print-gray-dark: #333;
 $print-gray: #666;
 $print-gray-light: #CCC;
+
+// Highlighter colours
+$print-highlight-function: #0077b3;
+$print-highlight-regex: #008020;
+$print-highlight-symbol: #800060;
+
+// Fonts
 $print-font-family-body: 'Merriweather', Georgia, "Times New Roman",  Times, serif;
 $print-font-family-heading: 'Open Sans', Helvetica, Arial, sans-serif;
+$print-font-family-code: 'Inconsolata', monospace;
