@@ -1,5 +1,9 @@
 # History
 
+## v0.0.6 - 16 July 2014
+
+* Update styles
+
 ## v0.0.5 - 25 May 2014
 
 * Pygments code highlighting support
