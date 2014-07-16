@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title GitPrint: #{pageTitle}
+    title GitPrint.com: #{pageTitle}
     meta(charset='utf-8')
     meta(description='Easily print GitHub markdown')
     link(rel='stylesheet', href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css')
@@ -14,12 +14,19 @@ html
       ga('create', 'UA-48971811-1', 'gitprint.com');
       ga('send', 'pageview');
     script.
+      var autoPrint=#{autoPrint};
       function printFrame(id) {
         var frm = document.getElementById(id).contentWindow;
         frm.focus();// focus on contentWindow is needed on some ie versions
         frm.print();
         return false;
       }
+      if(autoPrint) {
+        window.onload = function() {
+          printFrame("document");
+        }
+      }
+
   body.printView
 
     .noDirectPrintingWarning.visible-print
@@ -31,13 +38,20 @@ html
       .container-fluid
         .navbar-header
           a.navbar-brand(href="/") GitPrint <em>&ndash; Easily print GitHub markdown</em>
+          div.pull-left.share
+            a.twitter-share-button(href="https://twitter.com/share", data-text="Easily print GitHub markdown files with GitPrint.com", data-dnt="true")
         ul.nav.navbar-nav.navbar-right
+          li
+            a.btn.btn-link.navbar-btn(href="/#addons") Browser extension &amp; Bookmarklet
           li
             a.btn.btn-default.navbar-btn(href="?download") Download
           li
-            a.btn.btn-primary.navbar-btn.btn-print(href="#print", onclick='printFrame("document");return false;')
+            a.btn.btn-primary.navbar-btn.btn-print(href="?print", onclick='printFrame("document");return false;')
               span.glyphicon.glyphicon-print
               span Print
           
     .documentContainer.hidden-print
       iframe#document(src='?inline', width='100%', height='100%', scrolling='no', frameborder='no')
+
+    script.
+      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');

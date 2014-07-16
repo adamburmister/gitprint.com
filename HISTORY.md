@@ -1,5 +1,20 @@
 # History
 
+## v0.0.6 - 16 July 2014
+
+* Update styles
+
+## v0.0.5 - 25 May 2014
+
+* Pygments code highlighting support
+* Compress PDF file output
+* Improved Github URL translation support for raw.githubusercontent.com URLs
+* Refactor conversion methods into single method
+
+## v0.0.4 - 2 May 2014
+
+* Added table print styles
+
 ## v0.0.3 - 3 April 2014
 
 * Added support for Wiki printing, along with markdown preprocessor

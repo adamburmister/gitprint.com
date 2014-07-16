@@ -4,7 +4,7 @@ var assert = chai.assert;
 var should = chai.should();
 var Q = require('q');
 
-var relImgPreproc = require('../lib/relative_image_preprocessor');
+var relImgPreproc = require('../lib/preprocessor/relToAbsImageUrl');
 
 chai.use(chaiAsPromised);
 

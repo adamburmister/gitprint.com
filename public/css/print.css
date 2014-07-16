@@ -91,6 +91,7 @@ input, select {
 /* http://www.w3.org/TR/CSS2/sample.html */
 li {
   display: list-item;
+  margin: 0.5em 0;
 }
 
 head {
@@ -189,7 +190,7 @@ i, cite, em, var, address {
 }
 
 pre, tt, code, kbd, samp {
-  font-family: monospace;
+  font-family: "Inconsolata";
 }
 
 pre {
@@ -301,7 +302,7 @@ BDO[DIR="rtl"] {
 /* http://www.w3.org/TR/CSS2/page.html */
 body {
   color: black;
-  font-family: "Merriweather", Georgia, "Times New Roman", Times, serif;
+  font-family: "Merriweather";
   font-size: 10pt;
   line-height: 1.5;
   margin: 0;
@@ -315,27 +316,22 @@ a {
 a:link, a:visited {
   text-decoration: none;
 }
-a:link:after {
+a:link:not([href^="#"]):after {
   color: #666666;
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans";
   font-size: 0.8em;
   content: " (" attr(href) ") ";
 }
-a:link:after:contains('http://'), a:link:after:contains('https://') {
-  display: none;
-  content: '';
-}
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans";
   page-break-after: avoid;
-  border-bottom: 1pt solid #cccccc;
   margin: 1.5em 0 0.5em 0;
 }
 
 h1 {
-  border-bottom: 4pt solid #cccccc;
-  padding-bottom: 0.5em;
+  border-bottom: 2pt solid #cccccc;
+  padding-bottom: 0.25em;
   margin-top: 1em;
   margin-bottom: 1em;
 }
@@ -368,42 +364,25 @@ figcaption {
   clear: both;
 }
 
-img {
-  clear: both;
-  display: block;
+table {
+  width: 100%;
+  margin: 1rem 0 0.5rem 0;
 }
 
-pre {
-  position: relative;
-  border: none;
-  border-left: 1pt solid #cccccc;
-  padding: 0.5rem 0 0.5rem 1rem;
-  font-size: 0.8em;
+th, td {
+  border: 1pt solid #cccccc;
+  padding: 0.5rem;
 }
-pre:after {
-  position: absolute;
-  font-style: normal;
-  font-weight: 600;
-  font-variant: normal;
-  font-size: 0.8rem;
-  text-transform: none;
-  text-align: center;
-  margin-left: -1.5rem;
-  margin-top: 0.6rem;
-  top: 0;
-  width: 0.8rem;
-  line-height: 1;
-  color: #333333;
-  font-family: 'icomoon';
-  font-weight: normal;
-  font-style: normal;
-  content: "\e601";
+
+tr:nth-child(2n) {
+  background-color: #f8f8f8;
 }
-pre:before {
-  position: absolute;
-  top: 0;
-  left: -0.2rem;
-  width: 3pt;
-  border-top: 2rem solid #fff;
-  content: '';
+tr:last-child td, tr:last-child th {
+  border-bottom-width: 1.5pt;
+  border-bottom-color: #666666;
+}
+
+thead tr td, thead tr th {
+  border-bottom-width: 1pt;
+  border-bottom-color: #666666;
 }
