@@ -17,12 +17,12 @@
 export default {
   /* Headings */
   h1: {
-    bold: false,
-    fontSize: 20,
+    bold: true,
+    fontSize: 22,
     margin: [0, 20, 0, 20],
   },
   h2: {
-    bold: false,
+    bold: true,
     fontSize: 18,
     margin: [0, 20, 0, 20],
   },
@@ -51,7 +51,7 @@ export default {
   strong: {
     bold: true,
   },
-  em: {
+  italic: {
     italic: true,
   },
   codespan: {

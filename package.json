@@ -3,23 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "marked": "^0.3.6",
+    "antd": "^2.12.4",
     "pdfmake": "^0.1.31",
-    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "styled-components": "^2.1.0",
+    "react-scripts": "1.0.10",
     "whatwg-fetch": "^2.0.3"
-  },
-  "devDependencies": {
-    "flow-bin": "^0.48.0",
-    "react-scripts": "1.0.7"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "flow": "flow"
+    "eject": "react-scripts eject"
   }
 }

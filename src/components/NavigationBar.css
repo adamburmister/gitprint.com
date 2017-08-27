@@ -1,0 +1,16 @@
+.NavigationBar {
+}
+.buttons {
+    text-align: right;
+}
+.brand {
+    font-size: 15px;
+    text-decoration: none;
+    color: #222;
+}
+.brand em {
+    font-size: 13px;
+    font-style: normal;
+    color: #999;
+}
+

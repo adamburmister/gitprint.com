@@ -125,8 +125,7 @@ Lexer.rules = block;
  */
 
 Lexer.lex = function(src, options) {
-  var Klass = options.lexer;
-  var lexer = new Klass(options);
+  var lexer = new Lexer(options);
   return lexer.lex(src);
 };
 
@@ -552,8 +551,7 @@ InlineLexer.rules = inline;
  */
 
 InlineLexer.output = function(src, links, options) {
-  var Klass = options.inlineLexer;
-  var inline = Klass(links, options);
+  var inline = new InlineLexer(links, options);
   return inline.output(src);
 };
 
@@ -562,7 +560,7 @@ InlineLexer.output = function(src, links, options) {
  */
 
 InlineLexer.prototype.output = function(src) {
-  var out = ''
+  var out = []
     , link
     , text
     , href
@@ -572,7 +570,7 @@ InlineLexer.prototype.output = function(src) {
     // escape
     if (cap = this.rules.escape.exec(src)) {
       src = src.substring(cap[0].length);
-      out += cap[1];
+      out.push( cap[1] );
       continue;
     }
 
@@ -588,7 +586,7 @@ InlineLexer.prototype.output = function(src) {
         text = escape(cap[1]);
         href = text;
       }
-      out += this.renderer.link(href, null, text);
+      out.push( this.renderer.link(href, null, text) );
       continue;
     }
 
@@ -597,7 +595,7 @@ InlineLexer.prototype.output = function(src) {
       src = src.substring(cap[0].length);
       text = escape(cap[1]);
       href = text;
-      out += this.renderer.link(href, null, text);
+      out.push( this.renderer.link(href, null, text) );
       continue;
     }
 
@@ -609,11 +607,12 @@ InlineLexer.prototype.output = function(src) {
         this.inLink = false;
       }
       src = src.substring(cap[0].length);
-      out += this.options.sanitize
+      out.push( this.options.sanitize
         ? this.options.sanitizer
           ? this.options.sanitizer(cap[0])
           : escape(cap[0])
         : cap[0]
+      );
       continue;
     }
 
@@ -621,10 +620,10 @@ InlineLexer.prototype.output = function(src) {
     if (cap = this.rules.link.exec(src)) {
       src = src.substring(cap[0].length);
       this.inLink = true;
-      out += this.outputLink(cap, {
+      out.push( this.outputLink(cap, {
         href: cap[2],
         title: cap[3]
-      });
+      }) );
       this.inLink = false;
       continue;
     }
@@ -636,12 +635,12 @@ InlineLexer.prototype.output = function(src) {
       link = (cap[2] || cap[1]).replace(/\s+/g, ' ');
       link = this.links[link.toLowerCase()];
       if (!link || !link.href) {
-        out += cap[0].charAt(0);
+        out.push( cap[0].charAt(0) );
         src = cap[0].substring(1) + src;
         continue;
       }
       this.inLink = true;
-      out += this.outputLink(cap, link);
+      out.push( this.outputLink(cap, link) );
       this.inLink = false;
       continue;
     }
@@ -649,42 +648,42 @@ InlineLexer.prototype.output = function(src) {
     // strong
     if (cap = this.rules.strong.exec(src)) {
       src = src.substring(cap[0].length);
-      out += this.renderer.strong(this.output(cap[2] || cap[1]));
+      out.push( this.renderer.strong(this.output(cap[2] || cap[1])) );
       continue;
     }
 
     // em
     if (cap = this.rules.em.exec(src)) {
       src = src.substring(cap[0].length);
-      out += this.renderer.em(this.output(cap[2] || cap[1]));
+      out.push( this.renderer.em(this.output(cap[2] || cap[1])) );
       continue;
     }
 
     // code
     if (cap = this.rules.code.exec(src)) {
       src = src.substring(cap[0].length);
-      out += this.renderer.codespan(escape(cap[2], true));
+      out.push( this.renderer.codespan(escape(cap[2], true)) );
       continue;
     }
 
     // br
     if (cap = this.rules.br.exec(src)) {
       src = src.substring(cap[0].length);
-      out += this.renderer.br();
+      out.push( this.renderer.br() );
       continue;
     }
 
     // del (gfm)
     if (cap = this.rules.del.exec(src)) {
       src = src.substring(cap[0].length);
-      out += this.renderer.del(this.output(cap[1]));
+      out.push( this.renderer.del(this.output(cap[1])) );
       continue;
     }
 
     // text
     if (cap = this.rules.text.exec(src)) {
       src = src.substring(cap[0].length);
-      out += this.renderer.text(escape(this.smartypants(cap[0])));
+      out.push( this.renderer.text(escape(this.smartypants(cap[0]))) );
       continue;
     }
 
@@ -787,41 +786,35 @@ Renderer.prototype.code = function(code, lang, escaped) {
 };
 
 Renderer.prototype.blockquote = function(quote) {
-  return '<blockquote>\n' + quote + '</blockquote>\n';
+  return { "text": quote, "style": [ "blockquote" ] };
 };
 
 Renderer.prototype.html = function(html) {
-  return html;
+  return { "text": html, "style": ["html"] };
 };
 
 Renderer.prototype.heading = function(text, level, raw) {
-  return '<h'
-    + level
-    + ' id="'
-    + this.options.headerPrefix
-    + raw.toLowerCase().replace(/[^\w]+/g, '-')
-    + '">'
-    + text
-    + '</h'
-    + level
-    + '>\n';
+  return { "text": text, "style": ["heading", `h${level}`] };
+  // ' id="' + this.options.headerPrefix + raw.toLowerCase().replace(/[^\w]+/g, '-')
 };
 
 Renderer.prototype.hr = function() {
-  return this.options.xhtml ? '<hr/>\n' : '<hr>\n';
+  return { "text": "–", "style": ["hr"] }
 };
 
 Renderer.prototype.list = function(body, ordered) {
   var type = ordered ? 'ol' : 'ul';
-  return '<' + type + '>\n' + body + '</' + type + '>\n';
+  var list = {};
+  list[type] = body;
+  return list;
 };
 
 Renderer.prototype.listitem = function(text) {
-  return '<li>' + text + '</li>\n';
+  return text;
 };
 
 Renderer.prototype.paragraph = function(text) {
-  return '<p>' + text + '</p>\n';
+  return { text: text };
 };
 
 Renderer.prototype.table = function(header, body) {
@@ -849,23 +842,23 @@ Renderer.prototype.tablecell = function(content, flags) {
 
 // span level renderer
 Renderer.prototype.strong = function(text) {
-  return '<strong>' + text + '</strong>';
+  return { "text": text, style: ['strong'] };
 };
 
 Renderer.prototype.em = function(text) {
-  return '<em>' + text + '</em>';
+  return { "text": text, style: ['italic'] };
 };
 
 Renderer.prototype.codespan = function(text) {
-  return '<code>' + text + '</code>';
+  return { "text": text, style: ['codespan'] };
 };
 
 Renderer.prototype.br = function() {
-  return this.options.xhtml ? '<br/>' : '<br>';
+  return "\n";
 };
 
 Renderer.prototype.del = function(text) {
-  return '<del>' + text + '</del>';
+  return { "text": text, style: ['del'] };
 };
 
 Renderer.prototype.link = function(href, title, text) {
@@ -881,12 +874,7 @@ Renderer.prototype.link = function(href, title, text) {
       return '';
     }
   }
-  var out = '<a href="' + href + '"';
-  if (title) {
-    out += ' title="' + title + '"';
-  }
-  out += '>' + text + '</a>';
-  return out;
+  return { "text": `${text} (${href})`, style: ['anchor'] };
 };
 
 Renderer.prototype.image = function(href, title, text) {
@@ -920,8 +908,7 @@ function Parser(options) {
  */
 
 Parser.parse = function(src, options, renderer) {
-  var Klass = this.options.parser || marked.Parser;
-  var parser = new Klass(options, renderer);
+  var parser = new Parser(options, renderer);
   return parser.parse(src);
 };
 
@@ -930,13 +917,16 @@ Parser.parse = function(src, options, renderer) {
  */
 
 Parser.prototype.parse = function(src) {
-  var Klass = this.options.inlineLexer || InlineLexer;
-  this.inline = Klass(src.links, this.options, this.renderer);
+  this.inline = new InlineLexer(src.links, this.options, this.renderer);
   this.tokens = src.reverse();
 
-  var out = '';
+  var out = [];
   while (this.next()) {
-    out += this.tok();
+    out.push(this.tok());
+  }
+
+  if (out.length === 1) {
+    return out[0];
   }
 
   return out;
@@ -1040,11 +1030,11 @@ Parser.prototype.tok = function() {
       return this.renderer.blockquote(body);
     }
     case 'list_start': {
-      var body = ''
+      var body = []
         , ordered = this.token.ordered;
 
       while (this.next().type !== 'list_end') {
-        body += this.tok();
+        body.push(this.tok());
       }
 
       return this.renderer.list(body, ordered);
@@ -1155,13 +1145,7 @@ function marked(src, opt, callback) {
       opt = null;
     }
 
-    var optWithoutFns = merge({}, marked.defaults, opt || {});
-    opt = merge({
-      renderer: new Renderer(optWithoutFns),
-      lexer: new Lexer(optWithoutFns),      
-      inlineLexer: InlineLexer,
-      parser: new Parser(optWithoutFns),
-    }, optWithoutFns);
+    opt = merge({}, marked.defaults, opt || {});
 
     var highlight = opt.highlight
       , tokens
@@ -1169,7 +1153,7 @@ function marked(src, opt, callback) {
       , i = 0;
 
     try {
-      tokens = opt.lexer.lex(src, opt)
+      tokens = Lexer.lex(src, opt)
     } catch (e) {
       return callback(e);
     }
@@ -1185,7 +1169,7 @@ function marked(src, opt, callback) {
       var out;
 
       try {
-        out = opt.parser.parse(tokens, opt);
+        out = Parser.parse(tokens, opt);
       } catch (e) {
         err = e;
       }
@@ -1226,7 +1210,7 @@ function marked(src, opt, callback) {
   }
   try {
     if (opt) opt = merge({}, marked.defaults, opt);
-    return Parser.parse(opt.lexer.lex(src, opt), opt);
+    return Parser.parse(Lexer.lex(src, opt), opt);
   } catch (e) {
     e.message += '\nPlease report this to https://github.com/chjj/marked.';
     if ((opt || marked.defaults).silent) {
@@ -1244,28 +1228,11 @@ function marked(src, opt, callback) {
 
 marked.options =
 marked.setOptions = function(opt) {
-  var options = merge(marked.defaults, opt);
-
-  if (!options.lexer) {
-    marked.defaults.lexer = new Lexer(options);
-  }
-
-  if (!options.inlineLexer) {
-    marked.defaults.inlineLexer = InlineLexer;
-  }
-
-  if (!options.parser) {
-    marked.defaults.parser = new Parser(options);
-  }
-
+  merge(marked.defaults, opt);
   return marked;
 };
 
 marked.defaults = {
-  renderer: null,
-  lexer: null,
-  inlineLexer: null,
-  parser: null,
   gfm: true,
   tables: true,
   breaks: false,
@@ -1279,6 +1246,7 @@ marked.defaults = {
   langPrefix: 'lang-',
   smartypants: false,
   headerPrefix: '',
+  renderer: new Renderer,
   xhtml: false
 };
 
@@ -1306,9 +1274,9 @@ marked.parse = marked;
 // } else {
 //   this.marked = marked;
 // }
-// TODO: AB: Had to export this to work with it in dev
-export default marked;
 
 // }).call(function() {
 //   return this || (typeof window !== 'undefined' ? window : global);
 // }());
+
+export default marked;

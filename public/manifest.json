@@ -1,6 +1,6 @@
 {
   "short_name": "GitPrint",
-  "name": "GitPrint – Print Github hosted markdown to PDF",
+  "name": "GitPrint – Easily print GitHub markdown to beautiful PDFs",
   "icons": [
     {
       "src": "favicon.ico",
@@ -11,5 +11,6 @@
   "start_url": "./index.html",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "start_url": "/?utm_source=homescreen"
 }
