@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+    "name": "GitPrint",
+    "icons": {
+        "128": "icon.png"
+    },
+    "description": "Print Documents from GitHub.",
+    "version": "1.0",
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "page_action": {},
+    "permissions": [
+        "declarativeContent",
+        "tabs"
+    ]
+}
