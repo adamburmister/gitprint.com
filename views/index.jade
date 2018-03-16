@@ -26,4 +26,4 @@ block content
     h5 Bookmarklet
     p. 
       If you're using a browser that supports it, you should be able to click and drag the bookmarklet below to your bookmark's or favorite's bar.
-    a.btn.btn-default(href="javascript:void((function(){if(document.location.hostname.indexOf('github.com')!==-1){window.open(document.URL.replace('github.com','gitprint.com'),'_blank');}})());") <span class="glyphicon glyphicon-move"></span> GitPrint this!
+    a.btn.btn-default(href="javascript:void((function(d,w){if(d.location.hostname.indexOf('github.com')!==-1){if(d.location.hostname.indexOf('gist.github.com')!==-1){w.open(d.URL.replace('gist.github', 'gitprint').replace(d.location.hash, '') + '/raw','_blank')}else{w.open(d.URL.replace('github.com','gitprint.com'),'_blank')}}})(document, window))") <span class="glyphicon glyphicon-move"></span> GitPrint this!
